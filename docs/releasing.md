@@ -48,3 +48,17 @@ SPDX-License-Identifier: CC0-1.0
    ```console
    $ git push <remotename> refs/tags/<tagname>:refs/tags/<tagname>
    ```
+
+1. Generate a `SHA256SUMS` file:
+
+   ```console
+   $ (cd dist/ \
+      && sha256sum purepythonmilter-*.{tar.gz,whl} > SHA256SUMS \
+      && sha256sum --check SHA256SUMS)
+   ```
+
+1. Post a [new release on GitHub][github-post-new-release].
+
+   Attach the source tarball (`.tar.gz`), the wheel (`.whl`) and the `SHA256SUMS` files.
+
+[github-post-new-release]: https://github.com/gertvdijk/purepythonmilter/releases/new
