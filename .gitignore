@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2023 Gert van Dijk <github@gertvandijk.nl>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+*.egg-info/
+__pycache__/
+/.pytest_cache
+/build
+/dist
+/.direnv
+/.coverage
+/.pytest-cov

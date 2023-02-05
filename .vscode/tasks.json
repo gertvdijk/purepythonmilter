@@ -1,0 +1,123 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "run-all-linters-whole-project",
+      "type": "shell",
+      "command": "PYTHON_INTERPRETER=\"${command:python.interpreterPath}\" ./run-all-linters",
+      "icon": {
+        "id": "checklist",
+        "color": "terminal.ansiGreen"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true,
+        "revealProblems": "onProblem",
+      },
+      "problemMatcher": [
+        {
+          "owner": "run-all-linters-whole-project",
+          "source": "mypy (via run-all-linters)",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}",
+          ],
+          "pattern": {
+            // src/purepythonmilter/myfile.py:32:37: error: Name "__qualname__" is not defined  [name-defined]
+            // includes match for ''.py' in filename to avoid matching on shellcheck's
+            // output in gcc-format.
+            "regexp": "^(.+\\.py.?):(\\d+):(\\d+): (\\w*): (.+)(  \\[(.*)\\])?$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "code": 7,
+            "severity": 4,
+            "message": 5,
+          },
+        },
+        {
+          "owner": "run-all-linters-whole-project",
+          "source": "flake8 (via run-all-linters)",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}",
+          ],
+          "pattern": {
+            // ./src/purepythonmilter/myfile.py:5:1: F401 'typing.AsyncContextManager' imported but unused
+            "regexp": "^(.+):(\\d+):(\\d+): ((\\w)\\d+) (.+)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "code": 4,
+            "severity": 5,
+            "message": 6,
+          },
+        },
+        {
+          "owner": "run-all-linters-whole-project",
+          "source": "isort (via run-all-linters)",
+          "fileLocation": [
+            "absolute",
+          ],
+          "pattern": {
+            // ERROR: /abs/path/to/purepythonmilter/src/myfile.py Imports are incorrectly sorted and/or formatted.
+            "regexp": "^([A-Z]+): (.+\\.py) (.+)$",
+            "severity": 1,
+            "file": 2,
+            "message": 3,
+          },
+        },
+        // The REUSE tool does not provide a machine-parsable output, because both the
+        // summary and the listing of files with issues are presented in the same way.
+        {
+          "owner": "run-all-linters-whole-project",
+          "source": "reuse-lint (via run-all-linters)",
+          "pattern": {
+            // Unfortunately, your project is not compliant with version 3.0 of the REUSE Specification :-(
+            "regexp": "^(Unfortunately, your project is not compliant .*)",
+            "message": 1,
+          },
+        },
+        {
+          "owner": "run-all-linters-whole-project",
+          "source": "hadolint (via run-all-linters)",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}",
+          ],
+          "pattern": {
+            // Dockerfile:11 DL3006 warning: Always tag the version of an image explicitly
+            "regexp": "^(.+):(\\d+) ([A-Z0-9]+) ([a-z]+): (.+)$",
+            "file": 1,
+            "line": 2,
+            "code": 3,
+            "severity": 4,
+            "message": 5,
+          },
+        },
+        {
+          "owner": "run-all-linters-whole-project",
+          "source": "shellcheck (via run-all-linters)",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}",
+          ],
+          "pattern": {
+            // filename:25:26: error: Double quote array expansions to avoid re-splitting elements. [SC2068]
+            "regexp": "^(.+):(\\d+):(\\d+): ([a-z]+): (.+) \\[(.*)\\]$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "code": 6,
+            "severity": 4,
+            "message": 5,
+          },
+        },
+      ],
+    },
+  ],
+}

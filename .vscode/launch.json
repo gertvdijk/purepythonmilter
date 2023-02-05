@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Overriding default Python debug test launcher command to disable coverage
+            // (via env var below), because coverage reporting interferes with the
+            // debugger.
+            // https://code.visualstudio.com/docs/python/testing#_pytest-configuration-settings
+            "name": "Python: Debug Tests",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "env": {
+                "PYTEST_ADDOPTS": "--no-cov",
+            },
+            "purpose": [
+                "debug-test",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+        }
+    ]
+}

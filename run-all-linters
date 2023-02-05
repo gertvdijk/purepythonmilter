@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+# SPDX-FileCopyrightText: 2023 Gert van Dijk <github@gertvandijk.nl>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Stop at first error.
+set -e
+
+# Allow to override path to python interpreter in order to run this from a
+# non-virtualenv aware application like VS Code.
+PYTHON="${PYTHON_INTERPRETER:-python}"
+echo -n "Using Python interpreter at location: $PYTHON "
+echo "(to override specify \$PYTHON_INTERPRETER)"
+
+HADOLINT="${HADOLINT_PATH:-hadolint}"
+echo "Using Hadolint at location: $HADOLINT (to override specify \$HADOLINT_PATH)"
+
+SHELLCHECK="${SHELLCHECK_PATH:-shellcheck}"
+echo "Using Shellcheck at location: $SHELLCHECK (to override specify \$SHELLCHECK_PATH)"
+
+PYTHON_SOURCES_DIRS=(src/ tests/)
+
+echo "ruff..."
+"$PYTHON" -m ruff --diff "${PYTHON_SOURCES_DIRS[@]}" || \
+    (echo "Run 'ruff --fix ${PYTHON_SOURCES_DIRS[*]}' to fix auto-fixable."; exit 1)
+# Also lint for non-auto-fixables - requires a separate invocation apparently.
+# Disabeld for now due to missing support for structural pattern matching:
+# https://github.com/charliermarsh/ruff/issues/282
+# "$PYTHON" -m ruff --show-source ${PYTHON_SOURCES_DIRS}
+echo "OK!"
+
+# Pyupgrade will never provide a check-mode in itself unfortunately. 😥
+# For check runs it mandates the use of the author's pre-commit framework.
+# https://github.com/asottile/pyupgrade/issues/595#issuecomment-1016484032
+echo "pyupgrade (editing in-place!)..."
+find "${PYTHON_SOURCES_DIRS[@]}" -name "*.py" \
+    -exec "$PYTHON" -m pyupgrade --py310-plus {} \;
+echo "OK!"
+
+# Black options are specified in pyproject.toml.
+echo "black..."
+"$PYTHON" -m black --check --diff . || (echo "Run 'black .' to fix."; exit 1)
+echo "OK!"
+
+# isort options are specified in pyproject.toml.
+echo "isort..."
+"$PYTHON" -m isort --check --diff . || (echo "Run 'isort .' to fix."; exit 1)
+echo "OK!"
+
+# flake8 options via .flake8 configuration file.
+echo "flake8..."
+"$PYTHON" -m flake8
+echo "OK!"
+
+# Other than '--cache-dir=/dev/null', mypy options are specified in pyproject.toml.
+# Keep in sync with /.vscode/settings.json, key 'python.linting.mypyArgs', except for
+# the '--cache-dir' option.
+# Observed weird inconsistent results with default --cache-dir enabled (mypy 0.971);
+# disable cache explicitly for this script.
+echo "mypy (purepythonmilter package)..."
+"$PYTHON" -m mypy --cache-dir=/dev/null --package purepythonmilter
+echo "OK!"
+echo "mypy (purepythonmilter tests folder)..."
+"$PYTHON" -m mypy --cache-dir=/dev/null ./tests
+
+echo "REUSE lint..."
+"$PYTHON" -m reuse lint -q 2>/dev/null \
+    || (echo "Run 'reuse lint' to view licensing issues."; exit 1)
+echo "OK!"
+
+echo "hadolint..."
+HADOLINT_FILES=(Dockerfile)
+"$HADOLINT" --version > /dev/null \
+    || (echo "Hadolint not found; please install this on your system."; exit 1)
+"$HADOLINT" "${HADOLINT_FILES[@]}"
+echo "OK!"
+
+# Keep shellcheck calling arguments in sync with /.vscode/settings.json key
+# 'shellcheck.customArgs', except for the '--format' option.
+echo "shellcheck..."
+SHELLCHECK_FILES=(run-all-linters postfixtest/files/entrypoint.sh)
+"$SHELLCHECK" --version > /dev/null \
+    || (echo "Shellcheck not found; please install this on your system."; exit 1)
+"$SHELLCHECK" --norc --format=gcc "${SHELLCHECK_FILES[@]}"
+echo "OK!"
+
+echo "validate-pyproject..."
+"$PYTHON" -m validate_pyproject pyproject.toml
+echo "OK!"
+
+echo "Everything looks OK! 🎉"

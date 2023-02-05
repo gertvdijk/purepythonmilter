@@ -1,0 +1,56 @@
+{
+    "files.associations": {
+        ".dockerignore": "ignore", // auto-interprets wrongly as Python somehow
+    },
+    "files.exclude": {
+        ".coverage": true,
+        ".direnv/": true,
+        ".pytest_cache/": true,
+        ".pytest-cov/": true,
+        ".ruff_cache/": true,
+        "**/__pycache__/": true,
+        "**/.mypy_cache/": true,
+        "**/*.egg-info/": true,
+        "dist/": true,
+    },
+    "files.insertFinalNewline": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.enabled": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.indexing": true,
+    "python.analysis.typeCheckingMode": "strict",
+    "python.formatting.provider": "black",
+    "editor.rulers": [
+        88, // black's default
+    ],
+    // https://github.com/microsoft/vscode-isort#import-sorting-on-save
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        }
+    },
+    // for the 'ms-python.isort' extension.
+    // keep in sync with /run-all-linters script.
+    "isort.args": [
+        "--profile",
+        "black",
+    ],
+    // Enable to run black+isort on every (manual) save, perhaps in user-level settings.
+    // "editor.formatOnSave": true,
+    "python.testing.pytestEnabled": true,
+    // For Pytest IntelliSense
+    // https://marketplace.visualstudio.com/items?itemName=Cameron.vscode-pytest
+    "pytest.command": "\"${command:python.interpreterPath}\" -m pytest",
+    "coverage-gutters.coverageFileNames": [
+        "coverage.xml",
+    ],
+    "coverage-gutters.coverageBaseDir": ".pytest-cov",
+    "coverage-gutters.coverageReportFileName": "html/index.html",
+    "shellcheck.executablePath": "shellcheck",
+    "shellcheck.useWorkspaceRootAsCwd": true,
+    // for the 'timonwong.shellcheck' extension.
+    // keep in sync with /run-all-linters script.
+    "shellcheck.customArgs": [
+        "--norc",
+    ],
+}

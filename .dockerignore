@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2023 Gert van Dijk
+#
+# SPDX-License-Identifier: CC0-1.0
+
+/.coverage
+/.direnv
+/.git
+/.mypy_cache
+/.pytest_cache
+/.pytest-cov
+/.reuse
+/.ruff_cache
+/.vscode
+/dist
