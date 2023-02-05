@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2023 Gert van Dijk <github@gertvandijk.nl>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Releasing Purepythonmilter
 
 1. Create an annotated and signed git tag.
@@ -28,11 +34,17 @@
 
    ```console
    $ twine check --strict dist/*
-   $ TWINE_USERNAME=__token__ twine upload --repository testpypi dist/*
+   $ TWINE_USERNAME=__token__ twine upload --sign --repository testpypi dist/*
    ```
 
 1. Upload to regular PyPI.
 
    ```console
-   $ TWINE_USERNAME=__token__ twine upload dist/*
+   $ TWINE_USERNAME=__token__ twine upload --sign dist/*
+   ```
+
+1. Push the git tag to GitHub.
+
+   ```console
+   $ git push <remotename> refs/tags/<tagname>:refs/tags/<tagname>
    ```
