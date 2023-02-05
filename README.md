@@ -184,6 +184,8 @@ years.
 - [python-libmilter]: marked as ['no longer supporting'][python-libmilter-readme-note],
   as of late 2022.
 - [PpyMilter]: Python 2-only (last commit 2015).
+- [yatxmilter]: Python 2-only (last commit 2015).
+- [python-milter-tools]: Python 2-only (last commit 2011).
 
 Alternatives in other programming languages without a dependency on Sendmail's libmilter
 are:
@@ -217,6 +219,8 @@ The repositoy is [REUSE][reuse-home] compliant.
 [PyMilter]: https://pythonhosted.org/pymilter/
 [PpyMilter]: https://github.com/jmehnle/ppymilter
 [python-libmilter]: https://github.com/crustymonkey/python-libmilter
+[yatxmilter]: https://github.com/humantech/yatxmilter
+[python-milter-tools]: https://github.com/siebenmann/python-milter-tools
 [postfix-socketmap-table]: https://www.postfix.org/socketmap_table.5.html
 [postfix-smtpd-policy-protocol]: https://www.postfix.org/SMTPD_POLICY_README.html#protocol
 [pypolicyd-spf]: https://launchpad.net/pypolicyd-spf
