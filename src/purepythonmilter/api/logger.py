@@ -42,11 +42,8 @@ class _LoggerAdapter(_LoggerAdapterType):
         assert hasattr(self, "extra") and self.extra is not None
         # If we get instantiated with a connection ID context, let's use that.
         # Otherwise, try again at process time to obtain it.
-        match (connection_id := self.extra.get("connection_id")):
-            case models.MilterServerConnectionID():
-                # help mypy (0.991)
-                # error: "object" has no attribute "short"  [attr-defined]
-                assert isinstance(connection_id, models.MilterServerConnectionID)
+        match self.extra.get("connection_id"):
+            case models.MilterServerConnectionID() as connection_id:
                 connection_id_short = connection_id.short
             case _:
                 if (connection_id_now := _get_connection_id_or_none()) is None:
