@@ -9,7 +9,7 @@ import ipaddress
 import logging
 import struct
 from collections.abc import Mapping
-from typing import Any, ClassVar, Literal, TypeAlias
+from typing import Any, ClassVar, TypeAlias
 
 import attrs
 
@@ -151,62 +151,28 @@ class Connect(BaseCommandWithData):
             raise ProtocolViolationCommandData(
                 f"Could not decode hostname in socket data {hostname_bin=!r}"
             ) from e
-        family, hostaddr_port, hostaddr_str = self._decode_socket_tuple(
-            socket_data.rstrip(b"\x00")
-        )
 
-        self.logger.debug(
-            f"_decode_connection_info {hostname=} "
-            f"family={family.name} {hostaddr_port=} {hostaddr_str=}"
-        )
-        # We could do a nice pattern matching here extracting the tuple etc, but mypy
-        # fails: https://github.com/python/mypy/issues/12533#issuecomment-1162496540
-        match family:
-            case definitions.AddressFamily.IPV4:
-                try:
-                    addr = ipaddress.IPv4Address(hostaddr_str)
-                except ipaddress.AddressValueError:
-                    raise ProtocolViolationCommandData(
-                        f"Unsupported socket data hostaddr value {hostaddr_str!r} for "
-                        f"family={family.name}"
-                    )
-                assert isinstance(hostaddr_port, int)  # Have to help mypy here? 😕
+        match self._decode_socket_data(socket_data.rstrip(b"\x00")):
+            case ipaddress.IPv4Address() as ip, int() as port:
                 return models.ConnectionInfoArgsIPv4(
-                    hostname=hostname, addr=addr, port=hostaddr_port
+                    hostname=hostname, addr=ip, port=port
                 )
-            case definitions.AddressFamily.IPV6:
-                try:
-                    addr6 = ipaddress.IPv6Address(hostaddr_str)
-                except ipaddress.AddressValueError:
-                    raise ProtocolViolationCommandData(
-                        f"Unsupported socket data hostaddr value {hostaddr_str!r} for "
-                        f"family={family.name}"
-                    )
-                assert isinstance(hostaddr_port, int)  # Have to help mypy here? 😕
+            case ipaddress.IPv6Address() as ip, int() as port:
                 return models.ConnectionInfoArgsIPv6(
-                    hostname=hostname, addr=addr6, port=hostaddr_port
+                    hostname=hostname, addr=ip, port=port
                 )
-            case definitions.AddressFamily.UNIX_SOCKET:
-                assert isinstance(hostaddr_str, str)  # Have to help mypy here? 😕
-                return models.ConnectionInfoArgsUnixSocket(path=hostaddr_str)
-            case definitions.AddressFamily.UNKNOWN:
+            case str() as hostaddr:
+                return models.ConnectionInfoArgsUnixSocket(path=hostaddr)
+            case _:
                 # This can happen when Postfix is unable to obtain the client IP from
                 # the kernel for whatever is the reason. Shows up like
                 #   postfix/smtpd[...]: connect from unknown[unknown]
                 # in Postfix smtpd logs.
                 return models.ConnectionInfoUnknown(description=hostname)
 
-    def _decode_socket_tuple(
+    def _decode_socket_data(
         self, socket_data: bytes
-    ) -> (
-        tuple[
-            Literal[definitions.AddressFamily.IPV4, definitions.AddressFamily.IPV6],
-            int,
-            str,
-        ]
-        | tuple[Literal[definitions.AddressFamily.UNIX_SOCKET], None, str]
-        | tuple[Literal[definitions.AddressFamily.UNKNOWN], None, None]
-    ):
+    ) -> tuple[ipaddress.IPv4Address | ipaddress.IPv6Address, int] | str | None:
         # Example data:
         #   b'4\xc36172.17.0.1'
         if not socket_data:
@@ -233,19 +199,24 @@ class Connect(BaseCommandWithData):
                     raise ProtocolViolationCommandData(
                         f"Could not decode IP address in socket data {socket_data=!r}"
                     ) from e
-                else:
-                    return family, port, address
+                try:
+                    return ipaddress.ip_address(address), port
+                # ipaddress.AddressValueError is only raised on IPv4Address/IPv6Address,
+                # but the more generic ipaddress.ip_address raises a plain ValueError.
+                except ValueError:
+                    raise ProtocolViolationCommandData(
+                        f"Unsupported socket data hostaddr value {address!r} for "
+                        f"family={family.name}"
+                    )
             case definitions.AddressFamily.UNIX_SOCKET:
                 try:
-                    socketpath = socket_data[3:].decode("utf-8")
+                    return socket_data[3:].decode("utf-8")
                 except ValueError as e:
                     raise ProtocolViolationCommandData(
                         f"Could not decode socket path in socket data {socket_data=!r}"
                     ) from e
-                else:
-                    return family, None, socketpath
             case definitions.AddressFamily.UNKNOWN:
-                return family, None, None
+                return None
 
 
 @attrs.define(auto_attribs=False, slots=False)
