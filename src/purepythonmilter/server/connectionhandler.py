@@ -141,9 +141,8 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
                     self._session.queue_command(command)
                 self.logger.debug("No payload from packet (yet)")
             except ProtocolViolation:
-                self.logger.error(
+                self.logger.exception(
                     "Protocol violation, going to close the connection.",
-                    exc_info=True,
                 )
                 await self.close_bottom_up()
                 break
@@ -152,7 +151,7 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
                 await self.close_bottom_up()
                 break
             except ConnectionResetError:
-                self.logger.error(
+                self.logger.exception(
                     "Milter-MTA connection reset unexpectedly. This may indicate a "
                     "protocol violation as observed from the MTA."
                 )
@@ -192,7 +191,7 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
             else:
                 self.logger.debug("Transport writer already marked as closed.")
         except Exception:
-            self.logger.error("Error closing client writer, ignoring.", exc_info=True)
+            self.logger.exception("Error closing client writer, ignoring.")
 
     async def close_bottom_up(self) -> None:
         self.logger.debug("close_bottom_up")
