@@ -76,39 +76,45 @@ def construct_bogus_packet(payload_length: int) -> Packet:
 
 
 @pytest.mark.parametrize(
-    "packet,valid",
+    "packet",
     [
         pytest.param(
-            construct_bogus_packet(0),
-            False,
-            id="zero-invalid",
-        ),
-        pytest.param(
             construct_bogus_packet(1),
-            True,
             id="lower-boundary-one",
         ),
         pytest.param(
             construct_bogus_packet(MAX_DATA_SIZE),
-            True,
             id="upper-boundary",
+        ),
+    ],
+)
+def test_decode_length_boundaries_valid(
+    decoder: PacketDecoder,
+    packet: Packet,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    [p for p in decoder.decode(packet)]
+    _assert_nothing_logged(caplog.records)
+
+
+@pytest.mark.parametrize(
+    "packet",
+    [
+        pytest.param(
+            construct_bogus_packet(0),
+            id="zero-invalid",
         ),
         pytest.param(
             construct_bogus_packet(MAX_DATA_SIZE + 1),
-            False,
             id="over-limit",
         ),
     ],
 )
-def test_decode_length_boundaries(
+def test_decode_length_boundaries_invalid(
     decoder: PacketDecoder,
     packet: Packet,
-    valid: bool,
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    if not valid:
-        with pytest.raises(ProtocolViolationPacket):
-            [p for p in decoder.decode(packet)]
-    else:
+    with pytest.raises(ProtocolViolationPacket):
         [p for p in decoder.decode(packet)]
     _assert_nothing_logged(caplog.records)
