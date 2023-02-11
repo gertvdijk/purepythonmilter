@@ -73,6 +73,7 @@ version_scheme = "guess-next-dev"
 
 [tool.ruff]
 src = ["src", "tests"]
+target-version = "py310"
 select = [
     "F",   # Pyflakes
     "E",   # pycodestyle errors
