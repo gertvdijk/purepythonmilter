@@ -34,7 +34,7 @@ def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:
 
 
 @pytest.mark.parametrize(
-    "flags,payload",
+    ("flags", "payload"),
     [
         pytest.param(
             RequestProtocolFlags(),
@@ -63,7 +63,7 @@ def test_options_negotiate(
 
 
 @pytest.mark.parametrize(
-    "set_symbolslist_commands,payload_expected",
+    ("set_symbolslist_commands", "payload_expected"),
     [
         pytest.param(
             {MacroStage.END_OF_MESSAGE: {"i"}},
@@ -160,7 +160,7 @@ def test_reply_with_code_text_and_enhanced(caplog: pytest.LogCaptureFixture) -> 
 
 
 @pytest.mark.parametrize(
-    "name_text_tuple,expected_payload",
+    ("name_text_tuple", "expected_payload"),
     [
         pytest.param(
             ("Foo", "Bar"),
@@ -234,7 +234,7 @@ def test_append_header_name_invalid(
 
 
 @pytest.mark.parametrize(
-    "insertheader,expected_payload",
+    ("insertheader", "expected_payload"),
     [
         pytest.param(
             InsertHeader(headername="Foo", headertext="Bar", index=123),
@@ -268,7 +268,7 @@ def test_insert_header_ok(
 
 
 @pytest.mark.parametrize(
-    "headername,headertext,index",
+    ("headername", "headertext", "index"),
     [
         pytest.param("", "Bar", 123, id="empty-headername"),
         pytest.param("Foo", "Bar", -1, id="index-negative"),
@@ -296,7 +296,7 @@ def test_insert_header_name_invalid(
 
 
 @pytest.mark.parametrize(
-    "changeheader,expected_payload",
+    ("changeheader", "expected_payload"),
     [
         pytest.param(
             ChangeHeader(headername="Foo", headertext="Bar", nth_occurrence=123),
@@ -330,7 +330,7 @@ def test_change_header_ok(
 
 
 @pytest.mark.parametrize(
-    "headername,headertext,nth_occurrence",
+    ("headername", "headertext", "nth_occurrence"),
     [
         pytest.param("", "Bar", 123, id="empty-headername"),
         pytest.param("Foo", "Bar", -1, id="nth_occurrence-negative"),
@@ -379,7 +379,7 @@ esmtp_args_params = [
 ]
 
 
-@pytest.mark.parametrize("esmtp_args,expected_partial_payload", esmtp_args_params)
+@pytest.mark.parametrize(("esmtp_args", "expected_partial_payload"), esmtp_args_params)
 def test_add_recipient_with_esmtp_args_ok(
     esmtp_args: EsmtpArgsType, expected_partial_payload: Payload
 ) -> None:
@@ -402,7 +402,7 @@ def test_change_mail_from_ok() -> None:
     ).encode() == Payload(b"epurepythonmilter@gertvandijk.nl\x00")
 
 
-@pytest.mark.parametrize("esmtp_args,expected_partial_payload", esmtp_args_params)
+@pytest.mark.parametrize(("esmtp_args", "expected_partial_payload"), esmtp_args_params)
 def test_change_mail_from_with_esmtp_args_ok(
     esmtp_args: EsmtpArgsType, expected_partial_payload: Payload
 ) -> None:

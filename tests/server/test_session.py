@@ -24,7 +24,7 @@ def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:
 
 
 @pytest.mark.parametrize(
-    "cmd,app_method",
+    ("cmd", "app_method"),
     [
         pytest.param(
             commands.Connect(
@@ -112,7 +112,7 @@ async def test_session_command_queue_no_macros_to_app(
 
 
 @pytest.mark.parametrize(
-    "cmd,app_method",
+    ("cmd", "app_method"),
     [
         pytest.param(
             commands.Abort(data_raw=commands.CommandDataRaw(b"")),

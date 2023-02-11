@@ -53,7 +53,7 @@ def test_request_protocol_flags_default() -> None:
 
 
 @pytest.mark.parametrize(
-    "request_obj,flag_test",
+    ("request_obj", "flag_test"),
     [
         pytest.param(
             RequestProtocolFlags(call_rcpt_to_rejected=True),
@@ -75,7 +75,7 @@ def test_request_protocol_flags_non_default_protocol(
 
 
 @pytest.mark.parametrize(
-    "request_obj,flag_test",
+    ("request_obj", "flag_test"),
     [
         pytest.param(
             RequestProtocolFlags(can_add_headers=True),
