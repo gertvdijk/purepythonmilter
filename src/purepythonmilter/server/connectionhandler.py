@@ -126,7 +126,7 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
                 packet: Packet = await self._reader.read(self.READER_CHUNK_SIZE)
                 if not len(packet):
                     if self._reader.at_eof():
-                        raise MtaMilterConnectionHandlerClosed()
+                        raise MtaMilterConnectionHandlerClosed
                     raise RuntimeError(
                         f"Should not reach here; reading 0 bytes with "
                         f"{self._reader.at_eof()=}"
