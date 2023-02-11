@@ -22,7 +22,6 @@ _newbody: str = "foobar"  # global overridden in commandline parsing
 
 
 async def on_end_of_message(cmd: EndOfMessage) -> Continue:
-    global _newbody
     return Continue(manipulations=[ReplaceBodyChunk(chunk=_newbody.encode())])
 
 
