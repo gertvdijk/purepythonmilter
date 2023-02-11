@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from collections.abc import AsyncGenerator, Callable, Generator
 from typing import TYPE_CHECKING, Any
 from unittest.mock import AsyncMock
 
@@ -25,6 +24,10 @@ from purepythonmilter.api.interfaces import (
 )
 from purepythonmilter.protocol import payload, responses
 from purepythonmilter.server import session
+
+if TYPE_CHECKING:
+    from collections.abc import AsyncGenerator, Callable, Generator
+
 
 logger = logging.getLogger(__name__)
 

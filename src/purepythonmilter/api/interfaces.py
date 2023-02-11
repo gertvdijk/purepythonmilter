@@ -6,16 +6,18 @@ from __future__ import annotations
 
 import abc
 import asyncio
-import logging
 import typing
 
 import attrs
 
-from purepythonmilter.protocol import definitions
-from purepythonmilter.protocol.responses import AbstractResponse
+if typing.TYPE_CHECKING:
+    import logging
 
-from ..api.models import MilterServerConnectionID, RequestProtocolFlags
-from ..protocol import commands, payload, responses
+    from purepythonmilter.protocol import definitions
+    from purepythonmilter.protocol.responses import AbstractResponse
+
+    from ..api.models import MilterServerConnectionID, RequestProtocolFlags
+    from ..protocol import commands, payload, responses
 
 
 class AbstractMtaMilterConnectionHandler(abc.ABC):

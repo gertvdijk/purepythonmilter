@@ -5,9 +5,7 @@
 from __future__ import annotations
 
 import asyncio
-import logging
-from collections.abc import Callable
-from typing import Any, ClassVar
+from typing import TYPE_CHECKING, Any, ClassVar
 
 import attrs
 
@@ -22,6 +20,10 @@ from ..protocol.exceptions import ProtocolViolation
 from ..protocol.packet import Packet, PacketDecoder, encode_payload
 from ..protocol.payload import Payload, PayloadDecoder
 from .session import MtaMilterSession
+
+if TYPE_CHECKING:
+    import logging
+    from collections.abc import Callable
 
 
 class MtaMilterConnectionHandlerClosed(BaseException):

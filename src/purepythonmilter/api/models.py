@@ -4,13 +4,16 @@
 
 from __future__ import annotations
 
-import ipaddress
 import uuid
 from contextvars import ContextVar
+from typing import TYPE_CHECKING
 
 import attrs
 
 from ..protocol import definitions
+
+if TYPE_CHECKING:
+    import ipaddress
 
 
 class MilterServerConnectionID(uuid.UUID):

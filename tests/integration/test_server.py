@@ -5,16 +5,21 @@
 # pyright: reportPrivateUsage=false
 from __future__ import annotations
 
-import asyncio
 import logging
+from typing import TYPE_CHECKING
 
 import pytest
 
 from purepythonmilter.api.application import PurePythonMilter
 from purepythonmilter.protocol import commands
-from purepythonmilter.server.milterserver import MilterServer
 
 from .conftest import assert_read, assert_reader_closed, await_connection_count
+
+if TYPE_CHECKING:
+    import asyncio
+
+    from purepythonmilter.server.milterserver import MilterServer
+
 
 pytestmark = pytest.mark.asyncio
 

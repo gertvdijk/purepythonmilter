@@ -8,15 +8,15 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
-from collections.abc import Generator
 from typing import TYPE_CHECKING
 
 import pytest
 
-from purepythonmilter.api.application import PurePythonMilter
-from purepythonmilter.server.milterserver import MilterServer
-
 if TYPE_CHECKING:
+    from collections.abc import Generator
+
+    from purepythonmilter.api.application import PurePythonMilter
+    from purepythonmilter.server.milterserver import MilterServer
 
     class FixtureRequest:
         param: PurePythonMilter
@@ -25,6 +25,7 @@ else:
     from typing import Any
 
     FixtureRequest = Any
+
 
 pytestmark = pytest.mark.asyncio
 

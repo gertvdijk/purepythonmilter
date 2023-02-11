@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import logging
 import struct
-from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 import pytest
 
@@ -15,6 +15,9 @@ from purepythonmilter.protocol.definitions import MAX_DATA_SIZE
 from purepythonmilter.protocol.exceptions import ProtocolViolationPacket
 from purepythonmilter.protocol.packet import Packet, PacketDecoder
 from purepythonmilter.protocol.payload import Payload
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 
 def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:

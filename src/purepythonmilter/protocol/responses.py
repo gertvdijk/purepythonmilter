@@ -7,14 +7,17 @@ from __future__ import annotations
 import abc
 import logging
 import struct
-from collections.abc import Iterable
-from typing import ClassVar, Literal, TypeAlias
+from typing import TYPE_CHECKING, ClassVar, Literal, TypeAlias
 
 import attrs
 
 from ..api import logger, models
 from . import definitions
 from .payload import Payload
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+
 
 ResponseData: TypeAlias = bytes
 

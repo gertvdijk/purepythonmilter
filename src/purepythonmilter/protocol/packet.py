@@ -4,17 +4,21 @@
 
 from __future__ import annotations
 
-import logging
 import struct
-from collections.abc import Generator
-from typing import TypeAlias
+from typing import TYPE_CHECKING, TypeAlias
 
 import attrs
 
 from ..api import logger, models
 from .definitions import BASE_LEN_BYTES, MAX_DATA_SIZE
 from .exceptions import ProtocolViolationPacket
-from .payload import Payload
+
+if TYPE_CHECKING:
+    import logging
+    from collections.abc import Generator
+
+    from .payload import Payload
+
 
 Packet: TypeAlias = bytes
 

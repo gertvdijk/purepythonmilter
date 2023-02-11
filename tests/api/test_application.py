@@ -5,12 +5,15 @@
 # pyright: reportPrivateUsage=false
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 
 from purepythonmilter.api.application import ProgrammingError, PurePythonMilter
 from purepythonmilter.protocol import commands, responses
 
-from ..conftest import FakeMtaMilterSession
+if TYPE_CHECKING:
+    from ..conftest import FakeMtaMilterSession
 
 
 def test_fails_no_annotation_return_type() -> None:

@@ -5,7 +5,7 @@
 from __future__ import annotations
 
 import logging
-from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 import pytest
 
@@ -13,6 +13,9 @@ from purepythonmilter.api.models import MilterServerConnectionID
 from purepythonmilter.protocol.commands import OptionsNegotiate
 from purepythonmilter.protocol.exceptions import ProtocolViolationPayload
 from purepythonmilter.protocol.payload import Payload, PayloadDecoder
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 
 def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:

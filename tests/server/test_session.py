@@ -7,14 +7,17 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from collections.abc import Sequence
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import pytest
 
 from purepythonmilter.protocol import commands, responses
 
 from ..conftest import FakeMtaMilterSession, MilterAppFactoryFixtureParams
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
 
 pytestmark = pytest.mark.asyncio
 

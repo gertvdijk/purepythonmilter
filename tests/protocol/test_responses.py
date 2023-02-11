@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import logging
 import re
-from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 import pytest
 
@@ -28,6 +28,9 @@ from purepythonmilter.protocol.responses import (
     TempFailWithCode,
     validate_headername_rfc5322,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 
 def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:

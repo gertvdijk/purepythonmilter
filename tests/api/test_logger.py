@@ -5,11 +5,13 @@
 from __future__ import annotations
 
 import logging
-
-import pytest
+from typing import TYPE_CHECKING
 
 from purepythonmilter.api.logger import ConnectionContextLogger
 from purepythonmilter.api.models import MilterServerConnectionID, connection_id_context
+
+if TYPE_CHECKING:
+    import pytest
 
 
 def test_connectioncontext_logger_no_connection_id_no_extra(

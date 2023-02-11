@@ -9,13 +9,17 @@ import enum
 import functools
 import logging
 import signal
+from typing import TYPE_CHECKING
 
 import attrs
 
 from .._version import __version__ as purepythonmilter_version
-from ..api.interfaces import MilterAppFactory
 from ..api.models import MilterServerConnectionID, connection_id_context
 from .connectionhandler import MtaMilterConnectionHandler
+
+if TYPE_CHECKING:
+    from ..api.interfaces import MilterAppFactory
+
 
 logger = logging.getLogger(__name__)
 

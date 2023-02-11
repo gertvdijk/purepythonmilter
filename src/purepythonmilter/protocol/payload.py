@@ -4,8 +4,7 @@
 
 from __future__ import annotations
 
-import logging
-from typing import TypeAlias
+from typing import TYPE_CHECKING, TypeAlias
 
 import attrs
 
@@ -13,6 +12,10 @@ from purepythonmilter.protocol.exceptions import ProtocolViolationPayload
 
 from ..api import logger, models
 from . import commands
+
+if TYPE_CHECKING:
+    import logging
+
 
 Payload: TypeAlias = bytes
 

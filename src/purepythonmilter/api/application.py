@@ -5,17 +5,19 @@
 from __future__ import annotations
 
 import asyncio
-import logging
 import types
 import typing
-from collections.abc import Callable, Coroutine
-from typing import Any, ClassVar
+from typing import TYPE_CHECKING, Any, ClassVar
 
 import attrs
 
 from ..protocol import commands, definitions, responses
 from ..server import milterserver
 from . import interfaces, logger, models
+
+if TYPE_CHECKING:
+    import logging
+    from collections.abc import Callable, Coroutine
 
 
 class ProgrammingError(BaseException):
