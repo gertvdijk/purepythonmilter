@@ -75,7 +75,7 @@ class RequestProtocolFlags:
 
     headers_with_leading_space: bool = False
 
-    def encode_to_flags_bitmask(self) -> tuple[int, int]:
+    def encode_to_flags_bitmask(self) -> tuple[int, int]:  # noqa: PLR0912, PLR0915
         protocol_flags, action_flags = 0, 0
         if not self.call_connect:
             protocol_flags |= definitions.ProtocolFlagsDisableCallback.CONNECT.value
