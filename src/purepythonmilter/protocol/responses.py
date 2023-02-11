@@ -341,8 +341,7 @@ class ChangeMailFrom(AbstractManipulation):
                 + esmtp_args_str.encode()
                 + b"\x00"
             )
-        else:
-            return Payload(self.response_char + self.mail_from.encode() + b"\x00")
+        return Payload(self.response_char + self.mail_from.encode() + b"\x00")
 
 
 def validate_headername_rfc5322(headername: str) -> None:

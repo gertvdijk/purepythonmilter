@@ -125,11 +125,10 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
                 if not len(packet):
                     if self._reader.at_eof():
                         raise MtaMilterConnectionHandlerClosed()
-                    else:
-                        raise RuntimeError(
-                            "Should not reach here; reading 0 bytes with "
-                            f"{self._reader.at_eof()=}"
-                        )
+                    raise RuntimeError(
+                        f"Should not reach here; reading 0 bytes with "
+                        f"{self._reader.at_eof()=}"
+                    )
                 self.logger.debug(f"got {len(packet)=} bytes [{packet=!r}]")
                 for payload in packet_decoder.decode(packet=packet):
                     command_class, command_data = payload_decoder.decode(

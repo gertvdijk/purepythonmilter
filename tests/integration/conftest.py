@@ -112,8 +112,7 @@ async def _await_shutdown(server_task: asyncio.Task[None]) -> None:
         if server_task.done():
             logger.info("yes, done!")
             break
-        else:
-            logger.info("no, will check again...")
+        logger.info("no, will check again...")
 
 
 @pytest.fixture()
