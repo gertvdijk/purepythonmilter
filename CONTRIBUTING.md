@@ -48,7 +48,7 @@ the owners of this repository before making a change.
     ```console
     $ pytest
     [...]
-    ==== 212 passed in 1.09s ====
+    ==== 211 passed in 1.09s ====
     ```
 
 1. Verify that you can run the `run-all-linters` script.

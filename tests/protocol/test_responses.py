@@ -205,7 +205,7 @@ def test_append_header_ok(
 
 
 def test_headername_validator_usascii_rfc5322() -> None:
-    for c in range(0, 128):
+    for c in range(0, 256):
         if c < 33 or c > 126:  # noqa: PLR2004
             with pytest.raises(
                 ValueError,
@@ -224,18 +224,6 @@ def test_headername_validator_usascii_rfc5322() -> None:
             ):
                 validate_headername_rfc5322(chr(c))
         else:
-            validate_headername_rfc5322(chr(c))
-
-
-def test_headername_validator_extended_ascii_rfc5322() -> None:
-    for c in range(128, 256):
-        with pytest.raises(
-            ValueError,
-            match=re.compile(
-                r"Header field names must contain only US-ASCII printable characters "
-                r"with values between 33 and 126 \(RFC5322\)"
-            ),
-        ):
             validate_headername_rfc5322(chr(c))
 
 
