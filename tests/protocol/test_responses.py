@@ -206,7 +206,7 @@ def test_append_header_ok(
 
 def test_headername_validator_usascii_rfc5322() -> None:
     for c in range(0, 128):
-        if c < 33 or c > 126:
+        if c < 33 or c > 126:  # noqa: PLR2004
             with pytest.raises(
                 ValueError,
                 match=re.compile(
@@ -215,7 +215,7 @@ def test_headername_validator_usascii_rfc5322() -> None:
                 ),
             ):
                 validate_headername_rfc5322(chr(c))
-        elif c == 58:
+        elif c == 58:  # noqa: PLR2004
             with pytest.raises(
                 ValueError,
                 match=re.compile(
