@@ -391,7 +391,7 @@ class AppendHeader(BaseHeaderManipulation):
     response_char: ClassVar[bytes] = b"h"  # SMFIR_ADDHEADER
 
     def encode(self) -> Payload:
-        return super()._encode(index=None)
+        return self._encode(index=None)
 
 
 @attrs.define(auto_attribs=False, kw_only=True)
@@ -411,7 +411,7 @@ class InsertHeader(BaseHeaderManipulation):
             raise ValueError("Header index must be positive.")
 
     def encode(self) -> Payload:
-        return super()._encode(index=self.index)
+        return self._encode(index=self.index)
 
 
 @attrs.define(auto_attribs=False, kw_only=True)
@@ -434,7 +434,7 @@ class ChangeHeader(BaseHeaderManipulation):
             raise ValueError("Header index (nth_occurrence) must be positive.")
 
     def encode(self) -> Payload:
-        return super()._encode(index=self.nth_occurrence)
+        return self._encode(index=self.nth_occurrence)
 
 
 @attrs.define(auto_attribs=False, kw_only=True)
