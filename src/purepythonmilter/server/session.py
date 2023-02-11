@@ -188,7 +188,10 @@ class MtaMilterSession(AbstractMtaMilterSession):
                     await self._send_response(response)
 
     def _attach_macros_to_command(
-        self, *, command: commands.BaseCommand, last_macro_command: commands.DefineMacro
+        self,
+        *,
+        command: commands.BaseCommand,
+        last_macro_command: commands.DefineMacro | None,
     ) -> None:
         if (
             last_macro_command is not None
