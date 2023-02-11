@@ -41,14 +41,14 @@
         },
         {
           "owner": "run-all-linters-whole-project",
-          "source": "flake8 (via run-all-linters)",
+          "source": "Ruff/flake8 (via run-all-linters)",
           "fileLocation": [
             "relative",
             "${workspaceFolder}",
           ],
           "pattern": {
             // ./src/purepythonmilter/myfile.py:5:1: F401 'typing.AsyncContextManager' imported but unused
-            "regexp": "^(.+):(\\d+):(\\d+): ((\\w)\\d+) (.+)$",
+            "regexp": "^(.+):(\\d+):(\\d+): ((\\w+)\\d+) (.+)$",
             "file": 1,
             "line": 2,
             "column": 3,
