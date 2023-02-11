@@ -21,6 +21,7 @@ echo "Using Shellcheck at location: $SHELLCHECK (to override specify \$SHELLCHEC
 
 PYTHON_SOURCES_DIRS=(src/ tests/)
 
+echo
 echo "Ruff..."
 "$PYTHON" -m ruff --diff "${PYTHON_SOURCES_DIRS[@]}" || \
     (echo "Run 'ruff --fix ${PYTHON_SOURCES_DIRS[*]}' to fix auto-fixable."; exit 1)
