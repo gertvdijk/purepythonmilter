@@ -25,7 +25,7 @@ class ProgrammingError(BaseException):
 
 
 def symbols_dict_empty_factory() -> dict[definitions.MacroStage, set[str]]:
-    return {stage: set() for stage in definitions.MacroStage if stage.value <= 6}
+    return {stage: set() for stage in definitions.CustomizableMacroStages}
 
 
 @attrs.define(kw_only=True)

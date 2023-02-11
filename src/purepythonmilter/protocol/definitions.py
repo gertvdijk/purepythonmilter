@@ -84,9 +84,7 @@ ProtocolFlagsAllType = ProtocolFlagsDisableCallback | ProtocolFlagsOther
 
 @enum.unique
 class MacroStage(enum.Enum):
-    # Not all stages are defined in libmilter, but Postfix sends them, yet does not
-    # allow them for customization. 🤷
-    #   postfix/smtpd[...]: warning: milter [...]: ignoring unknown macro type [...]
+    # Not all stages are defined in libmilter, but they are sent by Postfix.
     CONNECT = 0  # SMFIM_CONNECT
     HELO = 1  # SMFIM_HELO
     MAIL_FROM = 2  # SMFIM_ENVFROM
@@ -97,6 +95,20 @@ class MacroStage(enum.Enum):
     BODY = 8
     END_OF_MESSAGE = 5  # SMFIM_EOM
     UNKNOWN = 9
+
+
+# Postfix also sends macros in libmilter-undefined stages, yet it does not allow all of
+# them for customization. 🤷
+#     postfix/smtpd[...]: warning: milter [...]: ignoring unknown macro type [...]
+CustomizableMacroStages: set[MacroStage] = {
+    MacroStage.CONNECT,
+    MacroStage.HELO,
+    MacroStage.MAIL_FROM,
+    MacroStage.RCPT_TO,
+    MacroStage.DATA,
+    MacroStage.END_OF_HEADERS,
+    MacroStage.END_OF_MESSAGE,
+}
 
 
 @enum.unique
