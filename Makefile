@@ -9,9 +9,9 @@ PYTHON_PKG_VERSION ?= $(shell python -m setuptools_scm)
 # Docker tags with '+' are not supported.
 IMAGE_TAG ?= $(shell echo "$(PYTHON_PKG_VERSION)" | tr + _)
 IMAGE_NAME := purepythonmilter
-# python:3.10.9-slim-bullseye linux/amd64 @ 2023-01-24
+# python:3.10.10-slim-bullseye linux/amd64 @ 2023-02-09
 # https://hub.docker.com/_/python/tags?page=1&name=3.10-slim-bullseye
-FROM_IMAGE := python@sha256:4ee11faf62dd64d0975cf1d0061d37440ae2289a791f659d5f41c0c05fb6b180
+FROM_IMAGE := python@sha256:012dc6043fd638e2ca247ebf5440af55b5ab5357b7549755ae273bd1f3a1b953
 
 CACHEBUST_MINUTE := $(shell date '+%Y-%m-%d %H:%M')
 
