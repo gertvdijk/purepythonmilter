@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from collections.abc import Sequence
 
 import pytest
@@ -202,9 +203,22 @@ def test_append_header_ok(
 
 def test_headername_validator_usascii_rfc5322() -> None:
     for c in range(0, 128):
-        if c == 58 or c < 33 or c > 126:
-            # Colon (58) and < 33 and > 126 should not be accepted
-            with pytest.raises(ValueError):
+        if c < 33 or c > 126:
+            with pytest.raises(
+                ValueError,
+                match=re.compile(
+                    r"Header field names must contain only US-ASCII printable "
+                    r"characters with values between 33 and 126 \(RFC5322\)"
+                ),
+            ):
+                validate_headername_rfc5322(chr(c))
+        elif c == 58:
+            with pytest.raises(
+                ValueError,
+                match=re.compile(
+                    r"Header field names must not contain a colon \(RFC5322\)"
+                ),
+            ):
                 validate_headername_rfc5322(chr(c))
         else:
             validate_headername_rfc5322(chr(c))
@@ -212,23 +226,43 @@ def test_headername_validator_usascii_rfc5322() -> None:
 
 def test_headername_validator_extended_ascii_rfc5322() -> None:
     for c in range(128, 256):
-        with pytest.raises(ValueError):
+        with pytest.raises(
+            ValueError,
+            match=re.compile(
+                r"Header field names must contain only US-ASCII printable characters "
+                r"with values between 33 and 126 \(RFC5322\)"
+            ),
+        ):
             validate_headername_rfc5322(chr(c))
 
 
 invalid_headernames = [
-    pytest.param("", id="empty-headername"),
-    pytest.param("X:ColonIllegal", id="colon-not-allowed"),
-    pytest.param("X No-Space", id="space-not-allowed"),
+    pytest.param(
+        "", re.compile(r"Header field name cannot be empty\."), id="empty-headername"
+    ),
+    pytest.param(
+        "X:ColonIllegal",
+        re.compile(r"Header field names must not contain a colon \(RFC5322\)"),
+        id="colon-not-allowed",
+    ),
+    pytest.param(
+        "X No-Space",
+        re.compile(
+            r"Header field names must contain only US-ASCII printable characters with "
+            r"values between 33 and 126 \(RFC5322\)"
+        ),
+        id="space-not-allowed",
+    ),
 ]
 
 
-@pytest.mark.parametrize("headername", invalid_headernames)
+@pytest.mark.parametrize(("headername", "match_re"), invalid_headernames)
 def test_append_header_name_invalid(
     headername: str,
+    match_re: re.Pattern[str],
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=match_re):
         AppendHeader(headername=headername, headertext="Foo")
     _assert_nothing_logged(caplog.records)
 
@@ -268,29 +302,43 @@ def test_insert_header_ok(
 
 
 @pytest.mark.parametrize(
-    ("headername", "headertext", "index"),
+    ("headername", "headertext", "index", "match_re"),
     [
-        pytest.param("", "Bar", 123, id="empty-headername"),
-        pytest.param("Foo", "Bar", -1, id="index-negative"),
+        pytest.param(
+            "",
+            "Bar",
+            123,
+            re.compile(r"Header field name cannot be empty\."),
+            id="empty-headername",
+        ),
+        pytest.param(
+            "Foo",
+            "Bar",
+            -1,
+            re.compile(r"Header index must be positive\."),
+            id="index-negative",
+        ),
     ],
 )
 def test_insert_header_invalid(
     headername: str,
     headertext: str,
     index: int,
+    match_re: re.Pattern[str],
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=match_re):
         InsertHeader(headername=headername, headertext=headertext, index=index)
     _assert_nothing_logged(caplog.records)
 
 
-@pytest.mark.parametrize("headername", invalid_headernames)
+@pytest.mark.parametrize(("headername", "match_re"), invalid_headernames)
 def test_insert_header_name_invalid(
     headername: str,
+    match_re: re.Pattern[str],
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=match_re):
         InsertHeader(headername=headername, headertext="Foo", index=1)
     _assert_nothing_logged(caplog.records)
 
@@ -330,31 +378,45 @@ def test_change_header_ok(
 
 
 @pytest.mark.parametrize(
-    ("headername", "headertext", "nth_occurrence"),
+    ("headername", "headertext", "nth_occurrence", "match_re"),
     [
-        pytest.param("", "Bar", 123, id="empty-headername"),
-        pytest.param("Foo", "Bar", -1, id="nth_occurrence-negative"),
+        pytest.param(
+            "",
+            "Bar",
+            123,
+            re.compile(r"Header field name cannot be empty\."),
+            id="empty-headername",
+        ),
+        pytest.param(
+            "Foo",
+            "Bar",
+            -1,
+            re.compile(r"Header index \(nth_occurrence\) must be positive\."),
+            id="nth_occurrence-negative",
+        ),
     ],
 )
 def test_change_header_invalid(
     headername: str,
     headertext: str,
     nth_occurrence: int,
+    match_re: re.Pattern[str],
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=match_re):
         ChangeHeader(
             headername=headername, headertext=headertext, nth_occurrence=nth_occurrence
         )
     _assert_nothing_logged(caplog.records)
 
 
-@pytest.mark.parametrize("headername", invalid_headernames)
+@pytest.mark.parametrize(("headername", "match_re"), invalid_headernames)
 def test_change_header_name_invalid(
     headername: str,
+    match_re: re.Pattern[str],
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=match_re):
         ChangeHeader(headername=headername, headertext="Foo", nth_occurrence=1)
     _assert_nothing_logged(caplog.records)
 
@@ -418,5 +480,7 @@ def test_replace_body_chunk_ok() -> None:
 
 
 def test_replace_body_chunk_too_large() -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError, match=re.compile(r"Length of 'chunk' must be <= 65535: 65536")
+    ):
         ReplaceBodyChunk(chunk=b"1" * 65536).encode()
