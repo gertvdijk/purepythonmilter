@@ -42,7 +42,7 @@ class _LoggerAdapter(_LoggerAdapterType):
         assert hasattr(self, "extra") and self.extra is not None
         # If we get instantiated with a connection ID context, let's use that.
         # Otherwise, try again at process time to obtain it.
-        match self.extra.get("connection_id"):
+        match self.extra.get("connection_id"):  # noqa: E999
             case models.MilterServerConnectionID() as connection_id:
                 connection_id_short = connection_id.short
             case _:

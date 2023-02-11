@@ -48,7 +48,7 @@ def _make_options_negotiate_data(
     )
     action_int = int.from_bytes(optneg_data_no_flags[4:8], "big", signed=False)
     proto_int = int.from_bytes(optneg_data_no_flags[8:12], "big", signed=False)
-    match flag:
+    match flag:  # noqa: E999
         case (
             definitions.ProtocolFlagsDisableCallback()
             | definitions.ProtocolFlagsOther()

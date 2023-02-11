@@ -31,7 +31,7 @@ async def on_connect(cmd: Connect) -> Continue:
     at the later approriate end_of_message stage for you.
     """
     global _headername, logger
-    match cmd.connection_info_args:
+    match cmd.connection_info_args:  # noqa: E999
         case ConnectionInfoArgsIPv4() | ConnectionInfoArgsIPv6():
             ip = str(cmd.connection_info_args.addr)
             logger.info(f"on_connect(): adding header '{_headername}: {ip}'")

@@ -153,7 +153,7 @@ class MtaMilterSession(AbstractMtaMilterSession):
                 await self._process_queue_item(queue_item)
 
     async def _process_queue_item(self, queue_item: QueueEntry) -> None:
-        match queue_item.command:
+        match queue_item.command:  # noqa: E999
             case commands.OptionsNegotiate():
                 # This one is an exception to the rule; implemented here.
                 await self.on_options_negotiate(queue_item.command)

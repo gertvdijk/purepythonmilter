@@ -25,9 +25,7 @@ echo "ruff..."
 "$PYTHON" -m ruff --diff "${PYTHON_SOURCES_DIRS[@]}" || \
     (echo "Run 'ruff --fix ${PYTHON_SOURCES_DIRS[*]}' to fix auto-fixable."; exit 1)
 # Also lint for non-auto-fixables - requires a separate invocation apparently.
-# Disabled for now due to missing support for structural pattern matching:
-# https://github.com/charliermarsh/ruff/issues/282
-# "$PYTHON" -m ruff --show-source ${PYTHON_SOURCES_DIRS}
+"$PYTHON" -m ruff "${PYTHON_SOURCES_DIRS[@]}"
 echo "OK!"
 
 # Pyupgrade will never provide a check-mode in itself unfortunately. 😥
