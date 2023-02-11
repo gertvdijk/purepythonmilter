@@ -7,14 +7,14 @@
 from __future__ import annotations
 
 from ._version import __version__
-from .api.application import PurePythonMilter  # noqa: F401
-from .api.models import (  # noqa: F401
+from .api.application import PurePythonMilter
+from .api.models import (
     ConnectionInfoArgsIPv4,
     ConnectionInfoArgsIPv6,
     ConnectionInfoArgsUnixSocket,
     ConnectionInfoUnknown,
 )
-from .protocol.commands import (  # noqa: F401
+from .protocol.commands import (
     Abort,
     BodyChunk,
     Connect,
@@ -28,7 +28,7 @@ from .protocol.commands import (  # noqa: F401
     RcptTo,
     Unknown,
 )
-from .protocol.responses import (  # noqa: F401
+from .protocol.responses import (
     Accept,
     AddRecipient,
     AddRecipientWithEsmtpArgs,
