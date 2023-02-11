@@ -42,11 +42,11 @@ class BaseCommand(abc.ABC):
     )
     # Attribute 'data_raw' is here to handle any (invalid) data even for commands that
     # should not have any and the PacketDecoder does not have to guard about that.
-    data_raw: CommandDataRaw = attrs.field(default=None)
+    data_raw: CommandDataRaw = attrs.field(default=b"")
 
     def __attrs_post_init__(self) -> None:
         self.logger = logger.ConnectionContextLogger().get(__name__)
-        if self.data_raw is not None and self.data_raw != b"":
+        if self.data_raw:
             raise ProtocolViolationCommandData(
                 f"Expected no data for command {self.__class__.__name__}"
             )
