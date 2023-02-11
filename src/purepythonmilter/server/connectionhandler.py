@@ -139,8 +139,7 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
                     self.logger.debug(f"{command_class=} {command_data=}")
                     command = command_class(data_raw=command_data)
                     self._session.queue_command(command)
-                else:
-                    self.logger.debug("No payload from packet (yet)")
+                self.logger.debug("No payload from packet (yet)")
             except ProtocolViolation:
                 self.logger.error(
                     "Protocol violation, going to close the connection.",

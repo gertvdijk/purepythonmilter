@@ -102,8 +102,7 @@ async def _await_startup(
             continue
         else:
             return reader, writer
-    else:
-        raise RuntimeError("Server not accepting connections")
+    raise RuntimeError("Server not accepting connections")
 
 
 async def _await_shutdown(server_task: asyncio.Task[None]) -> None:
