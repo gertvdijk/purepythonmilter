@@ -52,7 +52,7 @@ def event_loop() -> Generator[asyncio.AbstractEventLoop, None, None]:
             break
     else:
         pending_tasks = [task for task in asyncio.all_tasks(loop) if not task.done()]
-        raise Exception(
+        raise Exception(  # noqa: TRY002
             f"Still having { len(pending_tasks)} pending tasks... {pending_tasks=}"
         )
     loop.close()
