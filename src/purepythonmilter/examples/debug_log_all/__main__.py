@@ -89,11 +89,11 @@ logger = debug_log_all_milter.logger
 
 
 @click.command(
-    context_settings=dict(
-        show_default=True,
-        max_content_width=200,
-        auto_envvar_prefix="PUREPYTHONMILTER",
-    )
+    context_settings={
+        "show_default": True,
+        "max_content_width": 200,
+        "auto_envvar_prefix": "PUREPYTHONMILTER",
+    }
 )
 @click.option(
     "--bind-host", default=purepythonmilter.DEFAULT_LISTENING_TCP_IP, show_envvar=True
