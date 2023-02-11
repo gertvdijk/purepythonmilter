@@ -112,29 +112,29 @@ class MtaMilterSession(AbstractMtaMilterSession):
                 f"commands_consumer: going to read the queue {last_macro_command=}"
             )
             had_timeout = False
-            read_queue_wrapped_coro_task = asyncio.Task(
+            read_queue_inner_task = asyncio.Task(
                 self._incoming_command_queue.get(),
-                name=f"read_queue_wrapped_coro_task-{self._socket_connection.id.short}",
+                name=f"read_queue_inner_task-{self._socket_connection.id.short}",
             )
             try:
                 queue_item = await asyncio.wait_for(
-                    read_queue_wrapped_coro_task,
+                    read_queue_inner_task,
                     timeout=self.queue_reader_timeout_seconds,
                 )
             except asyncio.TimeoutError:
                 self.logger.debug("timeout reading the command queue")
                 had_timeout = True
-                read_queue_wrapped_coro_task.cancel()
+                read_queue_inner_task.cancel()
                 continue
             except asyncio.CancelledError:
                 self.logger.debug(
                     "commands_consumer task cancelled! "
-                    f"{read_queue_wrapped_coro_task.cancelled()=}"
+                    f"{read_queue_inner_task.cancelled()=}"
                 )
-                if not read_queue_wrapped_coro_task.cancelled():
+                if not read_queue_inner_task.cancelled():
                     self._incoming_command_queue.put_nowait(None)
-                    read_queue_wrapped_coro_task.cancel()
-                    self.logger.debug(f"{read_queue_wrapped_coro_task.cancelled()=}")
+                    read_queue_inner_task.cancel()
+                    self.logger.debug(f"{read_queue_inner_task.cancelled()=}")
                 return
 
             self.logger.debug(f"commands_consumer: got {queue_item=}")
