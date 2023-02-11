@@ -109,7 +109,7 @@ class MilterServer:
     async def shutdown(self) -> None:
         self._state = MilterServerState.STOPPING
         # Copy into list, or else the dict value reader may change during iteration.
-        connections = [c for c in self._connections.values()]
+        connections = list(self._connections.values())
         logger.debug(
             f"Shutting down, closing {len(connections)} connections. "
             f"[{self._connections=}]"

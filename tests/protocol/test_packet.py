@@ -30,7 +30,7 @@ def decoder() -> PacketDecoder:
 
 
 def test_decode_empty(decoder: PacketDecoder, caplog: pytest.LogCaptureFixture) -> None:
-    payloads = [p for p in decoder.decode(Packet(b""))]
+    payloads = list(decoder.decode(Packet(b"")))
     assert payloads == []
     _assert_nothing_logged(caplog.records)
 
@@ -40,7 +40,7 @@ def test_decode_simple(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     packet_bytes = b"\x00\x00\x00\rO\x00\x00\x00\x06\x00\x00\x01\xff\x00\x1f\xff\xff"
-    payloads = [p for p in decoder.decode(Packet(packet_bytes))]
+    payloads = list(decoder.decode(Packet(packet_bytes)))
     assert payloads == [Payload(packet_bytes[4:])]
     _assert_nothing_logged(caplog.records)
 
@@ -51,9 +51,9 @@ def test_decode_chunks(
 ) -> None:
     packet_bytes = b"\x00\x00\x00\rO\x00\x00\x00\x06\x00\x00\x01\xff\x00\x1f\xff\xff"
     # Beyond the length field, but before the end.
-    payloads = [p for p in decoder.decode(Packet(packet_bytes[:10]))]
+    payloads = list(decoder.decode(Packet(packet_bytes[:10])))
     assert payloads == []
-    payloads = [p for p in decoder.decode(Packet(packet_bytes[10:]))]
+    payloads = list(decoder.decode(Packet(packet_bytes[10:])))
     assert payloads == [Payload(packet_bytes[4:])]
     _assert_nothing_logged(caplog.records)
 
@@ -64,9 +64,9 @@ def test_decode_chunks_mini(
 ) -> None:
     packet_bytes = b"\x00\x00\x00\rO\x00\x00\x00\x06\x00\x00\x01\xff\x00\x1f\xff\xff"
     # Before the length field finished.
-    payloads = [p for p in decoder.decode(Packet(packet_bytes[:2]))]
+    payloads = list(decoder.decode(Packet(packet_bytes[:2])))
     assert payloads == []
-    payloads = [p for p in decoder.decode(Packet(packet_bytes[2:]))]
+    payloads = list(decoder.decode(Packet(packet_bytes[2:])))
     assert payloads == [Payload(packet_bytes[4:])]
     _assert_nothing_logged(caplog.records)
 
@@ -93,7 +93,7 @@ def test_decode_length_boundaries_valid(
     packet: Packet,
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    [p for p in decoder.decode(packet)]
+    list(decoder.decode(packet))
     _assert_nothing_logged(caplog.records)
 
 
@@ -116,5 +116,5 @@ def test_decode_length_boundaries_invalid(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     with pytest.raises(ProtocolViolationPacket):
-        [p for p in decoder.decode(packet)]
+        list(decoder.decode(packet))
     _assert_nothing_logged(caplog.records)
