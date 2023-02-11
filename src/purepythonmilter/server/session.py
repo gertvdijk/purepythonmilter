@@ -70,7 +70,7 @@ class MtaMilterSession(AbstractMtaMilterSession):
         self.logger.debug("Starting commands_consumer task")
         self._commands_consumer_task = asyncio.create_task(
             self._commands_consumer(),
-            name=f"commands_consumer_task-{self._socket_connection.id.short}",
+            name=f"commands_consumer_task-{self._socket_connection.id_.short}",
         )
         self._commands_consumer_task.add_done_callback(self.commands_consumer_task_done)
 
@@ -114,7 +114,7 @@ class MtaMilterSession(AbstractMtaMilterSession):
             had_timeout = False
             read_queue_inner_task = asyncio.Task(
                 self._incoming_command_queue.get(),
-                name=f"read_queue_inner_task-{self._socket_connection.id.short}",
+                name=f"read_queue_inner_task-{self._socket_connection.id_.short}",
             )
             try:
                 queue_item = await asyncio.wait_for(

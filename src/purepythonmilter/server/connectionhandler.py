@@ -52,7 +52,7 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
             socket_connection=self,  # pyright: ignore PylancereportGeneralTypeIssues
         )
         self._keep_reading_packets_task = asyncio.create_task(
-            self.keep_reading_packets(), name=f"keep_reading_packets-{self.id.short}"
+            self.keep_reading_packets(), name=f"keep_reading_packets-{self.id_.short}"
         )
         self._keep_reading_packets_task.add_done_callback(
             self._keep_reading_packets_task_done,
@@ -107,16 +107,16 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
         self._cancel_reader_task()
 
     @property
-    def id(self) -> models.MilterServerConnectionID:
+    def id_(self) -> models.MilterServerConnectionID:
         return self._connection_id
 
     async def keep_reading_packets(self) -> None:
         assert not self._closed
         packet_decoder = PacketDecoder(
-            connection_id=self.id,  # pyright: ignore PylancereportGeneralTypeIssues
+            connection_id=self.id_,  # pyright: ignore PylancereportGeneralTypeIssues
         )
         payload_decoder = PayloadDecoder(
-            connection_id=self.id,  # pyright: ignore PylancereportGeneralTypeIssues
+            connection_id=self.id_,  # pyright: ignore PylancereportGeneralTypeIssues
         )
         while True:
             try:
@@ -179,7 +179,7 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
             return
 
         self._closed = True
-        self._server_on_close_cb(self.id)
+        self._server_on_close_cb(self.id_)
         self.logger.debug(f"writing EOF if {self._writer.can_write_eof()=}")
         try:
             if self._writer.can_write_eof():

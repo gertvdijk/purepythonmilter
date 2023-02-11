@@ -29,7 +29,7 @@ class AbstractMtaMilterConnectionHandler(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def id(self) -> MilterServerConnectionID:
+    def id_(self) -> MilterServerConnectionID:
         ...  # pragma: nocover
 
     @abc.abstractmethod

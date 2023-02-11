@@ -187,7 +187,7 @@ async def fake_socket_connection(
         ] = sever_callback
 
         @property
-        def id(self) -> models.MilterServerConnectionID:
+        def id_(self) -> models.MilterServerConnectionID:
             return self._connection_id
 
         async def keep_reading_packets(self) -> None:
