@@ -21,7 +21,7 @@ def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:
     assert not [rec for rec in records if rec.levelno >= logging.INFO]
 
 
-@pytest.fixture
+@pytest.fixture()
 def decoder() -> PacketDecoder:
     connection_id = MilterServerConnectionID.generate()
     return PacketDecoder(

@@ -37,7 +37,7 @@ def test_set_return_callback_by_annotation() -> None:
     assert ppm._request_proto_flags.reply_connect
 
 
-@pytest.mark.asyncio
+@pytest.mark.asyncio()
 async def test_basemilter_end_of_message_none_to_continue(
     fake_session: FakeMtaMilterSession,
 ) -> None:
@@ -52,7 +52,7 @@ async def test_basemilter_end_of_message_none_to_continue(
     assert isinstance(ret, responses.Continue)
 
 
-@pytest.mark.asyncio
+@pytest.mark.asyncio()
 async def test_basemilter_end_of_message_not_none_kept(
     fake_session: FakeMtaMilterSession,
 ) -> None:
