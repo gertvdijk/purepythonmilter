@@ -178,9 +178,11 @@ be accomplished using alternative — likely simpler — ways:
 
 ## Alternatives to Purepythonmilter
 
-Python alternatives appear to be unmaintained and no longer actively supported for
+Most Python alternatives appear to be unmaintained and no longer actively supported for
 years.
 
+- [Kilter][Kilter-gitlab-home]: A new project (2022) and shares some similarities
+  features; it's written in pure async Python.
 - [python-libmilter]: marked as ['no longer supporting'][python-libmilter-readme-note],
   as of late 2022.
 - [PpyMilter]: Python 2-only (last commit 2015).
@@ -216,6 +218,7 @@ licensed under the public domain "no rights reserved" [CC0] license.
 The repositoy is [REUSE][reuse-home] compliant.
 
 
+[Kilter-gitlab-home]: https://code.kodo.org.uk/kilter
 [PyMilter]: https://pythonhosted.org/pymilter/
 [PpyMilter]: https://github.com/jmehnle/ppymilter
 [python-libmilter]: https://github.com/crustymonkey/python-libmilter
