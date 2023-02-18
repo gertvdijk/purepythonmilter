@@ -9,7 +9,8 @@ from typing import TYPE_CHECKING, TypeAlias
 
 import attrs
 
-from ..api import logger, models
+from purepythonmilter.api import logger, models
+
 from .definitions import BASE_LEN_BYTES, MAX_DATA_SIZE
 from .exceptions import ProtocolViolationPacket
 

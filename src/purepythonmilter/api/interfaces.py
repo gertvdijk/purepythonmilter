@@ -13,11 +13,12 @@ import attrs
 if typing.TYPE_CHECKING:
     import logging
 
-    from purepythonmilter.protocol import definitions
+    from purepythonmilter.api.models import (
+        MilterServerConnectionID,
+        RequestProtocolFlags,
+    )
+    from purepythonmilter.protocol import commands, definitions, payload, responses
     from purepythonmilter.protocol.responses import AbstractResponse
-
-    from ..api.models import MilterServerConnectionID, RequestProtocolFlags
-    from ..protocol import commands, payload, responses
 
 
 class AbstractMtaMilterConnectionHandler(abc.ABC):

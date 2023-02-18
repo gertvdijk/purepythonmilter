@@ -11,8 +11,9 @@ from typing import TYPE_CHECKING, Any, ClassVar
 
 import attrs
 
-from ..protocol import commands, definitions, responses
-from ..server import milterserver
+from purepythonmilter.protocol import commands, definitions, responses
+from purepythonmilter.server import milterserver
+
 from . import interfaces, logger, models
 
 if TYPE_CHECKING:

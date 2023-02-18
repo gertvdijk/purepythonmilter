@@ -13,12 +13,13 @@ from typing import TYPE_CHECKING
 
 import attrs
 
-from .._version import __version__ as purepythonmilter_version
-from ..api.models import MilterServerConnectionID, connection_id_context
+from purepythonmilter._version import __version__ as purepythonmilter_version
+from purepythonmilter.api.models import MilterServerConnectionID, connection_id_context
+
 from .connectionhandler import MtaMilterConnectionHandler
 
 if TYPE_CHECKING:
-    from ..api.interfaces import MilterAppFactory
+    from purepythonmilter.api.interfaces import MilterAppFactory
 
 
 logger = logging.getLogger(__name__)

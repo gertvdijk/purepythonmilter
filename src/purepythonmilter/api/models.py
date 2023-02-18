@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 
 import attrs
 
-from ..protocol import definitions
+from purepythonmilter.protocol import definitions
 
 if TYPE_CHECKING:
     import ipaddress

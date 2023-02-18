@@ -8,9 +8,9 @@ from typing import TYPE_CHECKING, TypeAlias
 
 import attrs
 
+from purepythonmilter.api import logger, models
 from purepythonmilter.protocol.exceptions import ProtocolViolationPayload
 
-from ..api import logger, models
 from . import commands
 
 if TYPE_CHECKING:

@@ -9,16 +9,17 @@ from typing import TYPE_CHECKING, Any, ClassVar
 
 import attrs
 
-from ..api import logger, models
-from ..api.interfaces import (
+from purepythonmilter.api import logger, models
+from purepythonmilter.api.interfaces import (
     AbstractMtaMilterConnectionHandler,
     AbstractMtaMilterSession,
     MilterAppFactory,
 )
-from ..protocol import definitions
-from ..protocol.exceptions import ProtocolViolation
-from ..protocol.packet import Packet, PacketDecoder, encode_payload
-from ..protocol.payload import Payload, PayloadDecoder
+from purepythonmilter.protocol import definitions
+from purepythonmilter.protocol.exceptions import ProtocolViolation
+from purepythonmilter.protocol.packet import Packet, PacketDecoder, encode_payload
+from purepythonmilter.protocol.payload import Payload, PayloadDecoder
+
 from .session import MtaMilterSession
 
 if TYPE_CHECKING:
