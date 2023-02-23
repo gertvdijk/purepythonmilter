@@ -30,7 +30,6 @@ async def on_connect(cmd: Connect) -> Continue:
     The MtaMilterSession will keep track of desired message manipulations and apply them
     at the later approriate end_of_message stage for you.
     """
-    global _headername, logger
     match cmd.connection_info_args:
         case ConnectionInfoArgsIPv4() | ConnectionInfoArgsIPv6():
             ip = str(cmd.connection_info_args.addr)
