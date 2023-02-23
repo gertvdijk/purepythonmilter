@@ -1,4 +1,10 @@
 {
+    // Please set 'ruff.importStrategy' to 'fromEnvironment' in your workspace (or user)
+    // settings to use the same Ruff version as in the virtual environment. The Ruff
+    // plugin uses the bundled version by default.
+    // Not a valid folder-level setting.
+    // "ruff.importStrategy": "fromEnvironment"
+
     "files.associations": {
         ".dockerignore": "ignore", // auto-interprets wrongly as Python somehow
     },

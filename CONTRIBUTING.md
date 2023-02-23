@@ -75,7 +75,12 @@ for code style (e.g. 88-chars ruler), provides a task with 'problemMatcher' to r
 In order for them to work correctly, please
 [select the Python interpreter][ms-vscode-select-python] of the virtualenv you created,
 e.g. `.direnv/python-3.10.9/bin/python`.
-The linters and type checker will then be run inside this environment created with
+
+Please set `ruff.importStrategy` to `fromEnvironment` in your workspace (or user)
+settings to use the same Ruff version as in the virtual environment.
+The Ruff plugin uses the bundled version by default.
+
+All linters and type checkers will run inside this environment created with
 specific versions specified rather than relying on whatever is available system-wide.
 
 ℹ️ If you like, enable automatic on-save formatting with project-provided settings using
