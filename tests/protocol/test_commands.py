@@ -821,8 +821,8 @@ def test_unknown_ok(data: CommandDataRaw, caplog: pytest.LogCaptureFixture) -> N
 
 
 def test_command_registry_populated() -> None:
-    assert len(chars_to_command_registry.keys()) == 15
-    assert all(len(char) == 1 for char in chars_to_command_registry.keys())
+    assert len(chars_to_command_registry) == 15
+    assert all(len(char) == 1 for char in chars_to_command_registry)
 
 
 @pytest.mark.parametrize(
