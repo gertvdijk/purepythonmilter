@@ -260,7 +260,7 @@ class BaseMailFromAndRcptTo(BaseCommandWithData):
     esmtp_args: models.EsmtpArgsType = attrs.field(init=False, factory=dict)
     macros: Mapping[str, str] = attrs.field(init=False, factory=dict)
 
-    def _decode(self) -> None:
+    def _decode(self) -> None:  # noqa: PLR0912
         data = self.data_raw
         if not data or data[-1:] != b"\x00":
             raise ProtocolViolationCommandData(
