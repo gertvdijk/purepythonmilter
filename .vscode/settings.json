@@ -5,6 +5,10 @@
     // Not a valid folder-level setting.
     // "ruff.importStrategy": "fromEnvironment"
 
+    // Enable 'editor.formatOnSave' to run black and other formatters on every (manual)
+    // save. Suggested as user-level or workspace-level setting.
+    // "editor.formatOnSave": true,
+
     "files.associations": {
         ".dockerignore": "ignore", // auto-interprets wrongly as Python somehow
     },
@@ -29,8 +33,6 @@
     "editor.rulers": [
         88, // black's default
     ],
-    // Enable to run black on every (manual) save, perhaps in user-level settings.
-    // "editor.formatOnSave": true,
     "python.testing.pytestEnabled": true,
     // For Pytest IntelliSense
     // https://marketplace.visualstudio.com/items?itemName=Cameron.vscode-pytest
