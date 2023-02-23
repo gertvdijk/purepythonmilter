@@ -54,7 +54,11 @@ class BaseCommand(abc.ABC):
     def __str__(self) -> str:
         return f"{self.__class__.__name__} command [nodata]"
 
-    def __init_subclass__(cls, *args: Any, **kwargs: Any) -> None:
+    def __init_subclass__(
+        cls,
+        *args: Any,  # noqa: ANN401
+        **kwargs: Any,  # noqa: ANN401
+    ) -> None:
         super().__init_subclass__(*args, **kwargs)
         if hasattr(cls, "command_char"):
             if cmd := chars_to_command_registry.get(cls.command_char):
