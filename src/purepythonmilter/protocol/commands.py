@@ -12,7 +12,8 @@ from typing import TYPE_CHECKING, Any, ClassVar, TypeAlias
 
 import attrs
 
-from ..api import logger, models
+from purepythonmilter.api import logger, models
+
 from . import definitions
 from .exceptions import ProtocolViolationCommandData
 

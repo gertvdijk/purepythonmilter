@@ -10,14 +10,14 @@ from typing import TYPE_CHECKING, Any
 
 import attrs
 
-from ..api import logger
-from ..api.interfaces import (
+from purepythonmilter.api import logger
+from purepythonmilter.api.interfaces import (
     AbstractMilterApp,
     AbstractMtaMilterConnectionHandler,
     AbstractMtaMilterSession,
     QueueEntry,
 )
-from ..protocol import commands, definitions, responses
+from purepythonmilter.protocol import commands, definitions, responses
 
 if TYPE_CHECKING:
     import logging
