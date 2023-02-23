@@ -29,14 +29,6 @@ echo "Ruff..."
 "$PYTHON" -m ruff "${PYTHON_SOURCES_DIRS[@]}"
 echo "OK!"
 
-# Pyupgrade will never provide a check-mode in itself unfortunately. 😥
-# For check runs it mandates the use of the author's pre-commit framework.
-# https://github.com/asottile/pyupgrade/issues/595#issuecomment-1016484032
-echo "pyupgrade (editing in-place!)..."
-find "${PYTHON_SOURCES_DIRS[@]}" -name "*.py" \
-    -exec "$PYTHON" -m pyupgrade --py310-plus {} \;
-echo "OK!"
-
 # Black options are specified in pyproject.toml.
 echo "black..."
 "$PYTHON" -m black --check --diff . || (echo "Run 'black .' to fix."; exit 1)

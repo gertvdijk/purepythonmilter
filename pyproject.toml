@@ -41,7 +41,6 @@ development = [
     "pytest-asyncio",
     "pytest-cov",
     "pytest",
-    "pyupgrade",
     "reuse",
     "ruff>=0.0.252",
     "setuptools-scm[toml]>=6.2",
