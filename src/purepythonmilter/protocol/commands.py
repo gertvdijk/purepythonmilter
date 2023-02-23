@@ -145,7 +145,7 @@ class Connect(BaseCommandWithData):
         #   b'[172.17.0.1]\x004\xc36172.17.0.1\x00'
         #   b'ignored_hostname\x00L\x00\x00/run/mysock\x00'
         items = self.data_raw.split(b"\x00", maxsplit=1)
-        if len(items) != 2:
+        if len(items) != 2:  # noqa: PLR2004
             raise ProtocolViolationCommandData(
                 "Connection info data does not contain expected number of NULLs to "
                 "split into hostname, socket family and host address."
@@ -194,7 +194,7 @@ class Connect(BaseCommandWithData):
 
         match family:
             case definitions.AddressFamily.IPV4 | definitions.AddressFamily.IPV6:
-                if not len(socket_data) >= 6:
+                if not len(socket_data) >= 6:  # noqa: PLR2004
                     raise ProtocolViolationCommandData(
                         "Socket data should contain more than six bytes for IPv4/IPv6."
                     )
@@ -358,7 +358,7 @@ class Header(BaseCommandWithData):
                 f"Header data should be NULL-terminated. [data={self.data_raw!r}]"
             )
         items = _decode_array(self.data_raw)
-        if len(items) != 2:
+        if len(items) != 2:  # noqa: PLR2004
             raise ProtocolViolationCommandData(
                 f"Could not decode the header data={self.data_raw!r}"
             )
