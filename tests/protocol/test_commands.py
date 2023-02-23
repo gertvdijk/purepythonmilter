@@ -68,7 +68,7 @@ def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:
 
 
 @pytest.mark.parametrize(
-    "data,attributes_enabled",
+    ("data", "attributes_enabled"),
     [
         pytest.param(
             optneg_data_no_flags,
@@ -157,7 +157,7 @@ def test_command_eq() -> None:
 
 
 @pytest.mark.parametrize(
-    "data,stage,expected_macros",
+    ("data", "stage", "expected_macros"),
     [
         pytest.param(
             CommandDataRaw(b"C"),
@@ -250,7 +250,7 @@ def test_define_macro_invalid(
 
 
 @pytest.mark.parametrize(
-    "data,expected_connection_info_args",
+    ("data", "expected_connection_info_args"),
     [
         pytest.param(
             CommandDataRaw(b"[172.17.0.1]\x004\xc36172.17.0.1\x00"),
@@ -398,7 +398,7 @@ def test_connect_invalid(
 
 
 @pytest.mark.parametrize(
-    "data,expected_hostname",
+    ("data", "expected_hostname"),
     [
         pytest.param(
             CommandDataRaw(b"\x00"),
@@ -513,7 +513,7 @@ def generate_mail_from_and_rcpt_to_testparams_ok() -> Generator[Any, None, None]
 
 
 @pytest.mark.parametrize(
-    "cmd_class,data,expected_address,expected_esmtp_args",
+    ("cmd_class", "data", "expected_address", "expected_esmtp_args"),
     generate_mail_from_and_rcpt_to_testparams_ok(),
 )
 def test_mail_from_and_rcpt_to_ok(
@@ -566,7 +566,7 @@ def generate_mail_from_and_rcpt_to_testparams_angle_brackets() -> (
 
 
 @pytest.mark.parametrize(
-    "cmd_class,data,expected_address,expected_esmtp_args",
+    ("cmd_class", "data", "expected_address", "expected_esmtp_args"),
     generate_mail_from_and_rcpt_to_testparams_angle_brackets(),
 )
 def test_mail_from_and_rcpt_to_angle_brackets(
@@ -628,7 +628,7 @@ def generate_mail_from_and_rcpt_to_testparams_invalid() -> Generator[Any, None, 
 
 
 @pytest.mark.parametrize(
-    "cmd_class,data",
+    ("cmd_class", "data"),
     generate_mail_from_and_rcpt_to_testparams_invalid(),
 )
 def test_mail_from_rcpt_to_invalid(
@@ -642,7 +642,7 @@ def test_mail_from_rcpt_to_invalid(
 
 
 @pytest.mark.parametrize(
-    "data,name,text",
+    ("data", "name", "text"),
     [
         pytest.param(
             CommandDataRaw(b"From\x00Display Name <user@example.com>\x00"),
