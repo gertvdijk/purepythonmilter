@@ -62,8 +62,6 @@ class ConnectionContextLogger:
         *,
         extra_contexts: dict[str, Any] | None = None,
     ) -> logging.LoggerAdapter[logging.Logger]:
-        _extra: dict[str, Any] = (
-            dict() if extra_contexts is None else extra_contexts.copy()
-        )
+        _extra: dict[str, Any] = {} if extra_contexts is None else extra_contexts.copy()
         _extra["connection_id"] = _get_connection_id_or_none()
         return _LoggerAdapter(logging.getLogger(name), _extra)

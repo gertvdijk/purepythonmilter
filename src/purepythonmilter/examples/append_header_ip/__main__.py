@@ -56,11 +56,11 @@ logger = append_header_ip_milter.logger
 
 # Below is just mostly boilerplate for command line parsing.
 @click.command(
-    context_settings=dict(
-        show_default=True,
-        max_content_width=200,
-        auto_envvar_prefix="PUREPYTHONMILTER",
-    )
+    context_settings={
+        "show_default": True,
+        "max_content_width": 200,
+        "auto_envvar_prefix": "PUREPYTHONMILTER",
+    }
 )
 @click.option("--bind-host", default=DEFAULT_LISTENING_TCP_IP, show_envvar=True)
 @click.option("--bind-port", default=DEFAULT_LISTENING_TCP_PORT, show_envvar=True)
