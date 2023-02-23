@@ -187,10 +187,10 @@ class Connect(BaseCommandWithData):
         self.logger.debug(f"Decoded socket data {family_bin=!r}")
         try:
             family = definitions.AddressFamily(family_bin)
-        except ValueError:
+        except ValueError as e:
             raise ProtocolViolationCommandData(
                 f"Unsupported socket family {family_bin!r} in connection socket info."
-            )
+            ) from e
 
         match family:
             case definitions.AddressFamily.IPV4 | definitions.AddressFamily.IPV6:
@@ -209,11 +209,11 @@ class Connect(BaseCommandWithData):
                     return ipaddress.ip_address(address), port
                 # ipaddress.AddressValueError is only raised on IPv4Address/IPv6Address,
                 # but the more generic ipaddress.ip_address raises a plain ValueError.
-                except ValueError:
+                except ValueError as e:
                     raise ProtocolViolationCommandData(
                         f"Unsupported socket data hostaddr value {address!r} for "
                         f"family={family.name}"
-                    )
+                    ) from e
             case definitions.AddressFamily.UNIX_SOCKET:
                 try:
                     return socket_data[3:].decode("utf-8")
