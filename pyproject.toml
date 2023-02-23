@@ -45,7 +45,7 @@ development = [
     "pytest",
     "pyupgrade",
     "reuse",
-    "ruff>=0.0.247",
+    "ruff>=0.0.250",
     "setuptools-scm[toml]>=6.2",
     "twine",
     "validate-pyproject[all]",

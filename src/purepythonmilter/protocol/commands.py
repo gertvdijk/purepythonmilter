@@ -156,7 +156,7 @@ class Connect(BaseCommandWithData):
                 f"Could not decode hostname in socket data {hostname_bin=!r}"
             ) from e
 
-        match self._decode_socket_data(socket_data.rstrip(b"\x00")):  # noqa: E999
+        match self._decode_socket_data(socket_data.rstrip(b"\x00")):
             case ipaddress.IPv4Address() as ip, int() as port:
                 return models.ConnectionInfoArgsIPv4(
                     hostname=hostname, addr=ip, port=port
