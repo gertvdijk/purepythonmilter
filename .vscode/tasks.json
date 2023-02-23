@@ -41,7 +41,7 @@
         },
         {
           "owner": "run-all-linters-whole-project",
-          "source": "Ruff/flake8 (via run-all-linters)",
+          "source": "Ruff (via run-all-linters)",
           "fileLocation": [
             "relative",
             "${workspaceFolder}",

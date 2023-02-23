@@ -42,11 +42,6 @@ echo "black..."
 "$PYTHON" -m black --check --diff . || (echo "Run 'black .' to fix."; exit 1)
 echo "OK!"
 
-# flake8 options via .flake8 configuration file.
-echo "flake8..."
-"$PYTHON" -m flake8
-echo "OK!"
-
 # Other than '--cache-dir=/dev/null', mypy options are specified in pyproject.toml.
 # Keep in sync with /.vscode/settings.json, key 'python.linting.mypyArgs', except for
 # the '--cache-dir' option.
