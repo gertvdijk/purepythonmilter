@@ -29,7 +29,8 @@ def _get_connection_id_or_none() -> models.MilterServerConnectionID | None:
 
 class _LoggerAdapter(_LoggerAdapterType):
     def _format_context_trailer(self) -> str:
-        assert hasattr(self, "extra") and self.extra is not None
+        assert hasattr(self, "extra")
+        assert self.extra is not None
         printable_contexts: dict[str, str] = {k: str(v) for k, v in self.extra.items()}
         del printable_contexts["connection_id"]
         if not printable_contexts:
@@ -39,7 +40,8 @@ class _LoggerAdapter(_LoggerAdapterType):
         return f" [{keyvalues_str}]"
 
     def process(self, msg: Any, kwargs: LoggingKwargs) -> tuple[Any, LoggingKwargs]:
-        assert hasattr(self, "extra") and self.extra is not None
+        assert hasattr(self, "extra")
+        assert self.extra is not None
         # If we get instantiated with a connection ID context, let's use that.
         # Otherwise, try again at process time to obtain it.
         match self.extra.get("connection_id"):  # noqa: E999
