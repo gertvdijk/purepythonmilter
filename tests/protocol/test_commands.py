@@ -7,8 +7,7 @@ from __future__ import annotations
 import ipaddress
 import logging
 import struct
-from collections.abc import Generator, Sequence
-from typing import Any, ClassVar, Final
+from typing import TYPE_CHECKING, Any, ClassVar, Final
 
 import attrs
 import pytest
@@ -32,6 +31,9 @@ from purepythonmilter.protocol.commands import (
     chars_to_command_registry,
 )
 from purepythonmilter.protocol.exceptions import ProtocolViolationCommandData
+
+if TYPE_CHECKING:
+    from collections.abc import Generator, Sequence
 
 optneg_data_no_flags: Final[CommandDataRaw] = CommandDataRaw(
     # Just protocol version 6 and no other capabilities.

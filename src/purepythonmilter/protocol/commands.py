@@ -8,14 +8,16 @@ import abc
 import ipaddress
 import logging
 import struct
-from collections.abc import Mapping
-from typing import Any, ClassVar, TypeAlias
+from typing import TYPE_CHECKING, Any, ClassVar, TypeAlias
 
 import attrs
 
 from ..api import logger, models
 from . import definitions
 from .exceptions import ProtocolViolationCommandData
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 CommandDataRaw: TypeAlias = bytes
 

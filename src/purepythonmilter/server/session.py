@@ -5,10 +5,8 @@
 from __future__ import annotations
 
 import asyncio
-import logging
-import types
 from contextlib import ContextDecorator
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import attrs
 
@@ -20,6 +18,10 @@ from ..api.interfaces import (
     QueueEntry,
 )
 from ..protocol import commands, definitions, responses
+
+if TYPE_CHECKING:
+    import logging
+    import types
 
 QUEUE_READER_TIMEOUT_SECONDS_DEFAULT = 30
 
