@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import ipaddress
 import logging
+import re
 import struct
 from typing import TYPE_CHECKING, Any, ClassVar, Final
 
@@ -826,24 +827,42 @@ def test_command_registry_populated() -> None:
 
 
 @pytest.mark.parametrize(
-    "char",
+    ("char", "match_re"),
     [
         pytest.param(
             b"O",
+            re.compile(
+                r"Command registration for .* failed; command char b'O' is already "
+                r"registered to .*\."
+            ),
             id="taken-by-OptionsNegotiate",
         ),
         pytest.param(
             b"",
+            re.compile(
+                r"Command registration for .* failed; command char must be exactly one "
+                r"byte\."
+            ),
             id="length-invalid-zero",
         ),
         pytest.param(
             b"ZZ",
+            re.compile(
+                r"Command registration for .* failed; command char must be exactly one "
+                r"byte\."
+            ),
             id="length-invalid-more-than-one",
         ),
     ],
 )
-def test_command_registry_fails_definition_time(char: bytes) -> None:
-    with pytest.raises(ValueError):
+def test_command_registry_fails_definition_time(
+    char: bytes,
+    match_re: re.Pattern[str],
+) -> None:
+    with pytest.raises(
+        ValueError,
+        match=match_re,
+    ):
 
         class CommandWithCharInvalid(  # pyright: ignore PylancereportUnusedClass
             BaseCommand
