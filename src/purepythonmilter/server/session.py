@@ -217,10 +217,7 @@ class MtaMilterSession(AbstractMtaMilterSession):
 
     async def _stop_commands_consumer(self) -> None:
         task = self._commands_consumer_task
-        if task.done():
-            exception = task.exception()
-        else:
-            exception = None
+        exception = task.exception() if task.done() else None
         self.logger.debug(
             f"_stop_commands_consumer [task={task.get_name()}, exception={exception}, "
             f"cancelled={task.cancelled()}]"
