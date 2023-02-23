@@ -273,7 +273,7 @@ class MtaMilterSession(AbstractMtaMilterSession):
         )
         self._pending_manipulations.extend(manipulations)
 
-    async def handle_command_in_app(
+    async def handle_command_in_app(  # noqa: PLR0911
         self, command: commands.BaseCommand
     ) -> responses.AbstractResponse | None:
         self.logger.debug(f"handle_command_in_app {command=}")
