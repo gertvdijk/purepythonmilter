@@ -146,8 +146,7 @@ class MtaMilterSession(AbstractMtaMilterSession):
                 )
                 if had_timeout:
                     continue
-                else:
-                    return
+                return
 
             with DoneEventContextManager(
                 event=queue_item.done_event, logger=self.logger
