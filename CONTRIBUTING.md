@@ -80,7 +80,7 @@ specific versions specified rather than relying on whatever is available system-
 
 ℹ️ If you like, enable automatic on-save formatting with project-provided settings using
 the user-level setting `editor.formatOnSave`.
-It will run `black` and `isort` for you whenever hitting Save on a file.
+It will run `black` for you whenever hitting Save on a file.
 
 ## Pull Request Process
 

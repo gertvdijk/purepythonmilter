@@ -23,19 +23,7 @@
     "editor.rulers": [
         88, // black's default
     ],
-    // https://github.com/microsoft/vscode-isort#import-sorting-on-save
-    "[python]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true,
-        }
-    },
-    // for the 'ms-python.isort' extension.
-    // keep in sync with /run-all-linters script.
-    "isort.args": [
-        "--profile",
-        "black",
-    ],
-    // Enable to run black+isort on every (manual) save, perhaps in user-level settings.
+    // Enable to run black on every (manual) save, perhaps in user-level settings.
     // "editor.formatOnSave": true,
     "python.testing.pytestEnabled": true,
     // For Pytest IntelliSense

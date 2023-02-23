@@ -3,7 +3,6 @@
         "cameron.vscode-pytest",
         "charliermarsh.ruff",
         "exiasr.hadolint",
-        "ms-python.isort",
         "ms-python.python",
         "ms-python.vscode-pylance",
         "ryanluker.vscode-coverage-gutters",

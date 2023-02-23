@@ -57,20 +57,6 @@
             "message": 6,
           },
         },
-        {
-          "owner": "run-all-linters-whole-project",
-          "source": "isort (via run-all-linters)",
-          "fileLocation": [
-            "absolute",
-          ],
-          "pattern": {
-            // ERROR: /abs/path/to/purepythonmilter/src/myfile.py Imports are incorrectly sorted and/or formatted.
-            "regexp": "^([A-Z]+): (.+\\.py) (.+)$",
-            "severity": 1,
-            "file": 2,
-            "message": 3,
-          },
-        },
         // The REUSE tool does not provide a machine-parsable output, because both the
         // summary and the listing of files with issues are presented in the same way.
         {

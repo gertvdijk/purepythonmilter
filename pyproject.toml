@@ -38,7 +38,6 @@ development = [
     "black",
     "build",
     "flake8",
-    "isort",
     "mypy",
     "pytest-asyncio",
     "pytest-cov",
@@ -177,15 +176,6 @@ required-imports = [
 # This option takes *multiple* Python versions and should include all supported Python
 # versions, but this may change in the future. https://github.com/psf/black/issues/751
 target-version = ["py310", "py311"]
-
-[tool.isort]
-profile = "black"
-add_imports = [
-    # PEP-563 (new semantics for annotations) is gated behind
-    # 'from __future__ import annotations', including Python 3.10 & 3.11.
-    # https://docs.python.org/3/library/__future__.html#id1
-    "from __future__ import annotations",
-]
 
 [tool.mypy]
 strict = true

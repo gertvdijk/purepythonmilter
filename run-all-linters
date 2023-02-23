@@ -42,11 +42,6 @@ echo "black..."
 "$PYTHON" -m black --check --diff . || (echo "Run 'black .' to fix."; exit 1)
 echo "OK!"
 
-# isort options are specified in pyproject.toml.
-echo "isort..."
-"$PYTHON" -m isort --check --diff . || (echo "Run 'isort .' to fix."; exit 1)
-echo "OK!"
-
 # flake8 options via .flake8 configuration file.
 echo "flake8..."
 "$PYTHON" -m flake8
