@@ -39,7 +39,7 @@ class _LoggerAdapter(_LoggerAdapterType):
         keyvalues_str = ", ".join(keyvalues)
         return f" [{keyvalues_str}]"
 
-    def process(self, msg: Any, kwargs: LoggingKwargs) -> tuple[Any, LoggingKwargs]:
+    def process(self, msg: object, kwargs: LoggingKwargs) -> tuple[Any, LoggingKwargs]:
         assert hasattr(self, "extra")
         assert self.extra is not None
         # If we get instantiated with a connection ID context, let's use that.
