@@ -55,7 +55,7 @@ def main(*, bind_host: str, bind_port: int, log_level: str, newbody: str) -> Non
     """
     This Milter replaces the body with the value given in the `--newbody` parameter.
     """
-    global _newbody
+    global _newbody  # noqa: PLW0603
     logging.basicConfig(level=getattr(logging, log_level))
     _newbody = newbody
     change_body_milter.run_server(host=bind_host, port=bind_port)

@@ -79,7 +79,7 @@ def main(*, bind_host: str, bind_port: int, log_level: str, headername: str) -> 
     By default it adds it like this:
     X-MilterExample-Connect-IP: 1.2.3.4
     """
-    global _headername
+    global _headername  # noqa: PLW0603
     logging.basicConfig(level=getattr(logging, log_level))
     _headername = headername
     append_header_ip_milter.run_server(host=bind_host, port=bind_port)

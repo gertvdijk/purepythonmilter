@@ -42,7 +42,7 @@ development = [
     "pytest-cov",
     "pytest",
     "reuse",
-    "ruff>=0.0.252",
+    "ruff>=0.0.253",
     "setuptools-scm[toml]>=6.2",
     "twine",
     "validate-pyproject[all]",
@@ -157,9 +157,10 @@ ignore = [
     # "Relative imports from parent modules are banned"
     # https://github.com/adamchainz/flake8-tidy-imports#ban-relative-imports
     # is OK in tests or else it looks like 'tests' is an actual package...
-    # Fixed in 0.0.247 with
-    # https://github.com/charliermarsh/ruff/commit/4f927fbacc072290093eb70b41b23221a7386259
     "TID252",
+
+    # "Using the global statement to update [...] is discouraged" is OK in tests.
+    "PLW0603",
 ]
 
 [tool.ruff.isort]
