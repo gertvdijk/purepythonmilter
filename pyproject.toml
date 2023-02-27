@@ -35,7 +35,7 @@ dependencies = [
 
 [project.optional-dependencies]
 development = [
-    "black",
+    "black>=23.1.0",
     "build",
     "mypy",
     "pytest-asyncio",
@@ -170,11 +170,6 @@ required-imports = [
     # https://docs.python.org/3/library/__future__.html#id1
     "from __future__ import annotations",
 ]
-
-[tool.black]
-# This option takes *multiple* Python versions and should include all supported Python
-# versions, but this may change in the future. https://github.com/psf/black/issues/751
-target-version = ["py310", "py311"]
 
 [tool.mypy]
 strict = true
