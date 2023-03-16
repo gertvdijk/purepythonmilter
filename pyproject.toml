@@ -42,7 +42,7 @@ development = [
     "pytest-cov",
     "pytest",
     "reuse",
-    "ruff>=0.0.253",
+    "ruff>=0.0.253,!=0.0.255",
     "setuptools-scm[toml]>=6.2",
     "twine",
     "validate-pyproject[all]",
