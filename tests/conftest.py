@@ -127,18 +127,18 @@ async def fake_app_factory(
         ppm = PurePythonMilter()
         factory = ppm._get_factory()
         app = factory(session=session)
-        app.on_connect = AsyncMock(return_value=mocked_return_on_connect)  # type: ignore[assignment]  # noqa: E501
-        app.on_helo = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_mail_from = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_rcpt_to = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_data = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_header = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_end_of_headers = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_body_chunk = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_end_of_message = AsyncMock(return_value=mocked_return_on_end_of_message)  # type: ignore[assignment]  # noqa: E501
-        app.on_abort = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_quit = AsyncMock(return_value=None)  # type: ignore[assignment]
-        app.on_unknown = AsyncMock(return_value=mocked_return_on_unknown)  # type: ignore[assignment]  # noqa: E501
+        app.on_connect = AsyncMock(return_value=mocked_return_on_connect)  # type: ignore[method-assign]  # noqa: E501
+        app.on_helo = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_mail_from = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_rcpt_to = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_data = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_header = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_end_of_headers = AsyncMock(return_value=None)  # type: ignore[method-assign]  # noqa: E501
+        app.on_body_chunk = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_end_of_message = AsyncMock(return_value=mocked_return_on_end_of_message)  # type: ignore[method-assign]  # noqa: E501
+        app.on_abort = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_quit = AsyncMock(return_value=None)  # type: ignore[method-assign]
+        app.on_unknown = AsyncMock(return_value=mocked_return_on_unknown)  # type: ignore[method-assign]  # noqa: E501
         return app
 
     return app_factory

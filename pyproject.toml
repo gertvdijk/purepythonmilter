@@ -37,7 +37,7 @@ dependencies = [
 development = [
     "black>=23.1.0",
     "build",
-    "mypy",
+    "mypy>=1.1.1",
     "pytest-asyncio",
     "pytest-cov",
     "pytest",
