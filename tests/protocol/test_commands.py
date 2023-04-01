@@ -864,7 +864,7 @@ def test_command_registry_fails_definition_time(
         match=match_re,
     ):
 
-        class CommandWithCharInvalid(  # pyright: ignore PylancereportUnusedClass
+        class CommandWithCharInvalid(  # pyright: ignore [reportUnusedClass]
             BaseCommand
         ):
             command_char: ClassVar[bytes] = char

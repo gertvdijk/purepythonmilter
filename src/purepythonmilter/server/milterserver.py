@@ -103,11 +103,11 @@ class MilterServer:
             del self._connections[connection_id]
 
         connection = MtaMilterConnectionHandler(
-            reader=reader,  # pyright: ignore PylancereportGeneralTypeIssues
-            writer=writer,  # pyright: ignore PylancereportGeneralTypeIssues
+            reader=reader,  # pyright: ignore [reportGeneralTypeIssues]
+            writer=writer,  # pyright: ignore [reportGeneralTypeIssues]
             app_factory=self._app_factory,
-            connection_id=connection_id,  # pyright: ignore PylancereportGeneralTypeIssues # noqa: E501
-            server_on_close_cb=server_on_close_cb,  # pyright: ignore PylancereportGeneralTypeIssues # noqa: E501
+            connection_id=connection_id,  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
+            server_on_close_cb=server_on_close_cb,  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
         )
         self._connections[connection_id] = connection
 

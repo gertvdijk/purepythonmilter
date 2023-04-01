@@ -110,7 +110,7 @@ else:
     FixtureRequest = Any
 
 
-@pytest_asyncio.fixture  # pyright: ignore reportUntypedFunctionDecorator
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
 async def fake_app_factory(
     request: FixtureRequest,  # indirect parameter to specify mock return values
 ) -> MilterAppFactory:
@@ -144,7 +144,7 @@ async def fake_app_factory(
     return app_factory
 
 
-@pytest_asyncio.fixture  # pyright: ignore reportUntypedFunctionDecorator
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
 async def fake_socket_connection(
     fake_app_factory: MilterAppFactory,
 ) -> AbstractMtaMilterConnectionHandler:
@@ -230,12 +230,12 @@ class FakeMtaMilterSession(session.MtaMilterSession):
         self.responses_written.append(response)
 
 
-@pytest_asyncio.fixture  # pyright: ignore reportUntypedFunctionDecorator
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
 async def fake_session(
     fake_socket_connection: AbstractMtaMilterConnectionHandler,
 ) -> AsyncGenerator[FakeMtaMilterSession, None]:
     mms = FakeMtaMilterSession(
-        socket_connection=fake_socket_connection,  # pyright: ignore PylancereportGeneralTypeIssues # noqa: E501
+        socket_connection=fake_socket_connection,  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
         # Let's set a very short timeout to not have tests run so long.
         queue_reader_timeout_seconds=0.01,
     )
@@ -250,12 +250,12 @@ async def fake_session(
     mms._commands_consumer_task.cancel()
 
 
-@pytest_asyncio.fixture  # pyright: ignore reportUntypedFunctionDecorator
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
 async def fake_session_should_fail(
     fake_socket_connection: AbstractMtaMilterConnectionHandler,
 ) -> AsyncGenerator[FakeMtaMilterSession, None]:
     mms = FakeMtaMilterSession(
-        socket_connection=fake_socket_connection  # pyright: ignore PylancereportGeneralTypeIssues # noqa: E501
+        socket_connection=fake_socket_connection  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
     )
     yield mms
     assert mms._commands_consumer_task.done()

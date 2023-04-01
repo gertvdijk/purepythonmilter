@@ -342,13 +342,13 @@ class PurePythonMilter:
             async def send_progress(self) -> None:
                 self.logger.debug("send_progress")
 
-        return BaseMilter  # pyright: ignore PylancereportGeneralTypeIssues
+        return BaseMilter  # pyright: ignore [reportGeneralTypeIssues]
 
     async def start_server(self, *, host: str, port: int) -> None:
         if self._milterserver:
             raise RuntimeError("You can only start this app once.")
         srv = milterserver.MilterServer(
-            app_factory=self._get_factory()  # pyright: ignore PylancereportGeneralTypeIssues # noqa: E501
+            app_factory=self._get_factory()  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
         )
         self._milterserver = srv
         await srv.start_server(host=host, port=port)

@@ -52,7 +52,7 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
         self._closed = False
         self.logger = logger.ConnectionContextLogger().get(__name__)
         self._session = MtaMilterSession(
-            socket_connection=self,  # pyright: ignore PylancereportGeneralTypeIssues
+            socket_connection=self,  # pyright: ignore [reportGeneralTypeIssues]
         )
         self._keep_reading_packets_task = asyncio.create_task(
             self.keep_reading_packets(), name=f"keep_reading_packets-{self.id_.short}"
@@ -116,10 +116,10 @@ class MtaMilterConnectionHandler(AbstractMtaMilterConnectionHandler):
     async def keep_reading_packets(self) -> None:
         assert not self._closed
         packet_decoder = PacketDecoder(
-            connection_id=self.id_,  # pyright: ignore PylancereportGeneralTypeIssues
+            connection_id=self.id_,  # pyright: ignore [reportGeneralTypeIssues]
         )
         payload_decoder = PayloadDecoder(
-            connection_id=self.id_,  # pyright: ignore PylancereportGeneralTypeIssues
+            connection_id=self.id_,  # pyright: ignore [reportGeneralTypeIssues]
         )
         while True:
             try:

@@ -28,7 +28,7 @@ def _assert_nothing_logged(records: Sequence[logging.LogRecord]) -> None:
 def decoder() -> PacketDecoder:
     connection_id = MilterServerConnectionID.generate()
     return PacketDecoder(
-        connection_id=connection_id,  # pyright: ignore PylancereportGeneralTypeIssues
+        connection_id=connection_id,  # pyright: ignore [reportGeneralTypeIssues]
     )
 
 
