@@ -41,9 +41,9 @@ echo "OK!"
 # disable cache explicitly for this script.
 echo "mypy (purepythonmilter package)..."
 "$PYTHON" -m mypy --cache-dir=/dev/null --package purepythonmilter
-echo "OK!"
 echo "mypy (purepythonmilter tests folder)..."
 "$PYTHON" -m mypy --cache-dir=/dev/null ./tests
+echo "OK!"
 
 echo "REUSE lint..."
 "$PYTHON" -m reuse lint -q 2>/dev/null \
