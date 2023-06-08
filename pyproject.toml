@@ -72,61 +72,61 @@ version_scheme = "guess-next-dev"
 src = ["src", "tests"]
 target-version = "py310"
 select = [
-    "F",   # Pyflakes
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "I",   # isort
-    "N",   # pep8-naming
-    "UP",  # pyupgrade
-    "YTT", # flake8-2020
-    "ANN", # flake8-annotations
-    "S",   # flake8-bandit
-    "BLE", # flake8-blind-except
-    "FBT", # flake8-boolean-trap
-    "B",   # flake8-bugbear
-    "A",   # flake8-builtins
-    "C4",  # flake8-comprehensions
-    "DTZ", # flake8-datetimez
-    "T10", # flake8-debugger
-    "EXE", # flake8-executable
-    "ISC", # flake8-implicit-str-concat
-    "ICN", # flake8-import-conventions
-    "INP", # flake8-no-pep420
-    "PIE", # flake8-pie
-    "T20", # flake8-print
-    "PYI", # flake8-pyi
-    "PT",  # flake8-pytest-style
-    "Q",   # flake8-quotes
-    "RET", # flake8-return
-    "SIM", # flake8-simplify
-    "TID", # flake8-tidy-imports
-    "TCH", # flake8-type-checking
-    "PTH", # flake8-use-pathlib
-    "PD",  # pandas-vet
-    "PGH", # pygrep-hooks
-    "PL",  # Pylint
-    "TRY", # tryceratops
-    "RSE", # flake8-raise
-    "SLF", # flake8-self
-    "RUF", # Ruff-specific rules
+    "F",     # Pyflakes
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "I",     # isort
+    "N",     # pep8-naming
+    "UP",    # pyupgrade
+    "YTT",   # flake8-2020
+    "ANN",   # flake8-annotations
+    "S",     # flake8-bandit
+    "BLE",   # flake8-blind-except
+    "FBT",   # flake8-boolean-trap
+    "B",     # flake8-bugbear
+    "A",     # flake8-builtins
+    "C4",    # flake8-comprehensions
+    "DTZ",   # flake8-datetimez
+    "T10",   # flake8-debugger
+    "EXE",   # flake8-executable
+    "ISC",   # flake8-implicit-str-concat
+    "ICN",   # flake8-import-conventions
+    "INP",   # flake8-no-pep420
+    "PIE",   # flake8-pie
+    "T20",   # flake8-print
+    "PYI",   # flake8-pyi
+    "PT",    # flake8-pytest-style
+    "Q",     # flake8-quotes
+    "RET",   # flake8-return
+    "SIM",   # flake8-simplify
+    "TID",   # flake8-tidy-imports
+    "TCH",   # flake8-type-checking
+    "PTH",   # flake8-use-pathlib
+    "PD",    # pandas-vet
+    "PGH",   # pygrep-hooks
+    "PL",    # Pylint
+    "TRY",   # tryceratops
+    "RSE",   # flake8-raise
+    "SLF",   # flake8-self
+    "RUF",   # Ruff-specific rules
 
     # Generally good suggestions, but disabled, because too invasive or too much effort
     # for now to fix.
-    # "D",   # pydocstyle
-    # "EM",  # flake8-errmsg
-    # "G",   # flake8-logging-format
+    # "D",     # pydocstyle
+    # "EM",    # flake8-errmsg
+    # "G",     # flake8-logging-format
 
     # Disabled, because it also enforces commas on single-item function calls broken
     # over multiple lines (non-configurable).
-    # "COM", # flake8-commas
+    # "COM",   # flake8-commas
 
     # Disabled, because unused arguments are sometimes purposefully unused but included
     # for brevity or API requirements as reason (e.g. the callable is passed).
-    # "ARG", # flake8-unused-arguments
+    # "ARG",   # flake8-unused-arguments
 
     # Disabled for having plain erroneous auto-fixes removing actual comments as
     # 'dead code'. 😕
-    # "ERA", # eradicate
+    # "ERA",   # eradicate
 ]
 ignore = [
     # "Avoid specifying long messages outside the exception class"
