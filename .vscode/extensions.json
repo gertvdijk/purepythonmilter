@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "cameron.vscode-pytest",
         "charliermarsh.ruff",
         "exiasr.hadolint",
         "ms-python.python",

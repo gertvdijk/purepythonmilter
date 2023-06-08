@@ -35,9 +35,6 @@
         88, // black's default
     ],
     "python.testing.pytestEnabled": true,
-    // For Pytest IntelliSense
-    // https://marketplace.visualstudio.com/items?itemName=Cameron.vscode-pytest
-    "pytest.command": "\"${command:python.interpreterPath}\" -m pytest",
     "coverage-gutters.coverageFileNames": [
         "coverage.xml",
     ],
