@@ -1,9 +1,16 @@
 {
-    // Please set 'ruff.importStrategy' to 'fromEnvironment' in your workspace (or user)
-    // settings to use the same Ruff version as in the virtual environment. The Ruff
-    // plugin uses the bundled version by default.
+    // Please set 'black-formatter.importStrategy' to 'fromEnvironment' in your
+    // workspace (or user) settings to use the same Black version as in the
+    // virtual environment. The Black plugin uses the bundled version by
+    // default.
     // Not a valid folder-level setting.
-    // "ruff.importStrategy": "fromEnvironment"
+    "black-formatter.importStrategy": "fromEnvironment",
+    // Similar for Ruff, please set 'ruff.importStrategy' to 'fromEnvironment'
+    // in your workspace (or user) settings to use the same Ruff version as in
+    // the virtual environment. The Black plugin uses the bundled version by
+    // default.
+    // Not a valid folder-level setting as well.
+    "ruff.importStrategy": "fromEnvironment",
 
     // Enable 'editor.formatOnSave' to run black and other formatters on every (manual)
     // save. Suggested as user-level or workspace-level setting.
@@ -31,9 +38,16 @@
     "python.analysis.indexing": true,
     "python.analysis.typeCheckingMode": "strict",
     "python.formatting.provider": "black",
-    "editor.rulers": [
-        88, // black's default
-    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true,
+        },
+        "editor.rulers": [
+            88, // black's default
+        ],
+    },
     "python.testing.pytestEnabled": true,
     "coverage-gutters.coverageFileNames": [
         "coverage.xml",
