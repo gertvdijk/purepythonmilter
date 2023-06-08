@@ -47,7 +47,7 @@ USER root:root
 # And therefore purposefully ignore DL3042.
 # hadolint ignore=DL3042
 RUN --mount=type=cache,target=/root/.cache \
-    python -m pip install pip==23.0.1 setuptools==67.4.0 setuptools-scm[toml]==7.1.0
+    python -m pip install pip==23.1.2 setuptools==67.8.0 setuptools-scm[toml]==7.1.0
 USER purepythonmilter:purepythonmilter
 
 # Install dependencies (for 'examples' optional set) with pinned version manually.
@@ -56,7 +56,7 @@ USER purepythonmilter:purepythonmilter
 # hadolint ignore=DL3042
 RUN --mount=type=cache,target=/purepythonmilter/.cache \
     python -m pip install --user \
-        attrs==22.2.0 \
+        attrs==23.1.0 \
         click==8.1.3
 
 ### Build stage 2/2: the package itself ###
