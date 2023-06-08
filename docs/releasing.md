@@ -24,6 +24,12 @@ SPDX-License-Identifier: CC0-1.0
    $ ls -l dist/
    ```
 
+1. Run the `check-wheel-contents` linter on the wheel built.
+
+   ```console
+   $ check-wheel-contents dist/purepythonmilter-*.whl
+   ```
+
 1. Upload to PyPI testing and verify the release.
 
    *The magic username `__token__` is a literal that enables the use of an HTTP API key
