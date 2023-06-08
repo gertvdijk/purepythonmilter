@@ -118,7 +118,7 @@ class OptionsNegotiateResponse(AbstractResponse):
                 break
             self.logger.debug(
                 f"{(int_value):#034b} {get_proto_flagname(int_value):<30} "
-                f"{str(bool(protocol_flags & (int_value))):8}"
+                f"{bool(protocol_flags & (int_value))!s:8}"
             )
 
         def get_action_flagname(flag: int) -> str | None:
@@ -133,7 +133,7 @@ class OptionsNegotiateResponse(AbstractResponse):
                 break
             self.logger.debug(
                 f"{(int_value):#034b} {get_action_flagname(int_value):<30} "
-                f"{str(bool(action_flags & (int_value))):8}"
+                f"{bool(action_flags & (int_value))!s:8}"
             )
 
     def _log_symbols_table(self) -> None:

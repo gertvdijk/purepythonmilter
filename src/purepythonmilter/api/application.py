@@ -117,7 +117,7 @@ class PurePythonMilter:
         init=False, factory=models.RequestProtocolFlags
     )
 
-    def __attrs_post_init__(self) -> None:
+    def __attrs_post_init__(self) -> None:  # noqa: C901
         self.logger = logger.ConnectionContextLogger().get(self.name)
         if self.hook_on_connect is not None:
             self._request_proto_flags.call_connect = True
@@ -198,7 +198,7 @@ class PurePythonMilter:
         # Fails flake8 check, but isinstance check on NoneType is not working.
         return hints.get("return") is not types.NoneType  # noqa: E721
 
-    def _get_factory(self) -> interfaces.MilterAppFactory:
+    def _get_factory(self) -> interfaces.MilterAppFactory:  # noqa: C901
         """
         Create a factory for the connection handler to call on every new connection.
         Instead of this being the factory, the "factory of factory" pattern allows for

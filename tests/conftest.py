@@ -145,7 +145,7 @@ async def fake_app_factory(
 
 
 @pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
-async def fake_socket_connection(
+async def fake_socket_connection(  # noqa: C901
     fake_app_factory: MilterAppFactory,
 ) -> AbstractMtaMilterConnectionHandler:
     class FakeStreamWriter:
