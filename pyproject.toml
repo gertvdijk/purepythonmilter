@@ -43,7 +43,7 @@ development = [
     "pytest-cov",
     "pytest",
     "reuse",
-    "ruff>=0.0.272",
+    "ruff>=0.0.273",
     "setuptools-scm[toml]>=6.2",
     "twine",
     "validate-pyproject[all]",
@@ -105,6 +105,7 @@ select = [
     "RSE",   # flake8-raise
     "RET",   # flake8-return
     "SLF",   # flake8-self
+    "SLOT",  # flake8-slots
     "SIM",   # flake8-simplify
     "TID",   # flake8-tidy-imports
     "TCH",   # flake8-type-checking
@@ -119,6 +120,7 @@ select = [
     "FLY",   # flynt
     "NPY",   # NumPy-specific rules
     "AIR",   # Airflow
+    "PERF",  # Perflint
     "RUF",   # Ruff-specific rules
 
     # Generally good suggestions, but disabled, because too invasive or too much effort
@@ -138,6 +140,9 @@ select = [
     # Disabled for having plain erroneous auto-fixes removing actual comments as
     # 'dead code'. 😕
     # "ERA",   # eradicate
+
+    # Copyright notices are enforced using reuse.
+    # "CPY",   # Copyright-related rules
 ]
 ignore = [
     # "Avoid specifying long messages outside the exception class"
