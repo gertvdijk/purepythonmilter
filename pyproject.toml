@@ -49,7 +49,9 @@ development = [
     "validate-pyproject[all]",
 ]
 examples = [
-    "click",
+    # 8.1.4 has typing issues with mypy
+    # https://github.com/pallets/click/issues/2558
+    "click!=8.1.4",
 ]
 
 [project.urls]
