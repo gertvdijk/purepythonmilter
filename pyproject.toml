@@ -43,7 +43,7 @@ development = [
     "pytest-cov",
     "pytest",
     "reuse",
-    "ruff>=0.0.273",
+    "ruff>=0.0.277",
     "setuptools-scm[toml]>=6.2",
     "twine",
     "validate-pyproject[all]",
@@ -173,6 +173,10 @@ ignore = [
 
     # "Line contains TODO"
     "FIX002",
+
+    # "`try`-`except` within a loop incurs performance overhead"
+    # Quite a few of them in current code base; hard to refactor.
+    "PERF203",
 ]
 
 [tool.ruff.per-file-ignores]
