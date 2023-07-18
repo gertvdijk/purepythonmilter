@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-# pyright: reportPrivateUsage=false
 from __future__ import annotations
 
 import logging
