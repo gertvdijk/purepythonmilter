@@ -221,14 +221,13 @@ class PurePythonMilter:
         assert self.restrict_symbols is not None
         symbols_ = self.restrict_symbols
 
-        @attrs.define()
         class BaseMilter(interfaces.AbstractMilterApp):
-            _session: interfaces.AbstractMtaMilterSession = attrs.field()
             logger_name: ClassVar[str] = logger_name_
             protocol_flags: ClassVar[models.RequestProtocolFlags] = request_proto_flags
             symbols: ClassVar[dict[definitions.MacroStage, set[str]]] = symbols_
 
-            def __attrs_post_init__(self) -> None:
+            def __init__(self, *, session: interfaces.AbstractMtaMilterSession) -> None:
+                self._session = session
                 self.logger = logger.ConnectionContextLogger().get(self.logger_name)
 
             async def on_connect(
@@ -342,7 +341,7 @@ class PurePythonMilter:
             async def send_progress(self) -> None:
                 self.logger.debug("send_progress")
 
-        return BaseMilter  # pyright: ignore [reportGeneralTypeIssues]
+        return BaseMilter
 
     async def start_server(self, *, host: str, port: int) -> None:
         if self._milterserver:
