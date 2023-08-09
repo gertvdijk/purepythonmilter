@@ -168,7 +168,7 @@ class Connect(BaseCommandWithData):
                 return models.ConnectionInfoArgsIPv6(
                     hostname=hostname, addr=ip, port=port
                 )
-            case str() as hostaddr:
+            case str() as hostaddr:  # pyright: ignore [reportUnnecessaryComparison]
                 return models.ConnectionInfoArgsUnixSocket(path=hostaddr)
             case _:
                 # This can happen when Postfix is unable to obtain the client IP from
