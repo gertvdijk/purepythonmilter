@@ -195,8 +195,7 @@ class PurePythonMilter:
             raise ProgrammingError(
                 f"Please annotate the return type for hook {hook.__name__}()."
             )
-        # Fails flake8 check, but isinstance check on NoneType is not working.
-        return hints.get("return") is not types.NoneType  # noqa: E721
+        return hints.get("return") is not types.NoneType
 
     def _get_factory(self) -> interfaces.MilterAppFactory:  # noqa: C901
         """
