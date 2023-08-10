@@ -55,7 +55,9 @@ class MtaMilterSession(AbstractMtaMilterSession):
     macros_per_stage: dict[definitions.MacroStage, dict[str, str]] = attrs.field(
         init=False, factory=dict
     )
-    _last_macro_command: commands.DefineMacro | None = None
+    _last_macro_command: commands.DefineMacro | None = attrs.field(
+        init=False, default=None
+    )
     all_macros: dict[str, str] = attrs.field(init=False, factory=dict)
     queue_reader_timeout_seconds: float = attrs.field(
         default=QUEUE_READER_TIMEOUT_SECONDS_DEFAULT
@@ -63,10 +65,11 @@ class MtaMilterSession(AbstractMtaMilterSession):
     _pending_manipulations: list[responses.AbstractManipulation] = attrs.field(
         init=False, factory=list
     )
-    _manipulations_sent: bool = False
+    _manipulations_sent: bool = attrs.field(init=False, default=False)
+    _closed: bool = attrs.field(init=False, default=False)
+    logger: logging.LoggerAdapter[logging.Logger] = attrs.field(init=False)
 
     def __attrs_post_init__(self) -> None:
-        self._closed = False
         self.logger = logger.ConnectionContextLogger().get(__name__)
         self._app = self._socket_connection.app_factory(session=self)
         self.logger.debug("Starting commands_consumer task")
