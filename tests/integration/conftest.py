@@ -39,7 +39,7 @@ async def assert_read(
 ) -> bytes:
     bytes_read = b""
     start = time.time()
-    for _ in range(0, timeout_ms):
+    for _ in range(timeout_ms):
         if time.time() - start > (float(timeout_ms) / 1000):
             break
         try:
@@ -60,7 +60,7 @@ async def assert_reader_closed(
 ) -> bytes:
     bytes_read = b""
     start = time.time()
-    for _ in range(0, timeout_ms):
+    for _ in range(timeout_ms):
         if time.time() - start > (float(timeout_ms) / 1000):
             break
         try:
@@ -79,7 +79,7 @@ async def assert_reader_closed(
 async def await_connection_count(
     srv: MilterServer, *, count: int, timeout_ms: int = 1000
 ) -> None:
-    for _ in range(0, timeout_ms):
+    for _ in range(timeout_ms):
         if len(srv._connections) == count:
             break
         await asyncio.sleep(0.001)
@@ -92,7 +92,7 @@ async def await_connection_count(
 async def _await_startup(
     port: int,
 ) -> tuple[asyncio.StreamReader, asyncio.StreamWriter]:
-    for _ in range(0, 1000):
+    for _ in range(1000):
         await asyncio.sleep(0.001)
         logger.info("checking if server is accepting connections already...")
         try:
@@ -106,7 +106,7 @@ async def _await_startup(
 
 
 async def _await_shutdown(server_task: asyncio.Task[None]) -> None:
-    for _ in range(0, 1000):
+    for _ in range(1000):
         await asyncio.sleep(0.001)
         logger.info("checking if server is shut down...")
         if server_task.done():

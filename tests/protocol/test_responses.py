@@ -205,7 +205,7 @@ def test_append_header_ok(
 
 
 def test_headername_validator_usascii_rfc5322() -> None:
-    for c in range(0, 256):
+    for c in range(256):
         if c < 33 or c > 126:  # noqa: PLR2004
             with pytest.raises(
                 ValueError,

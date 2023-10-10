@@ -110,7 +110,7 @@ class OptionsNegotiateResponse(AbstractResponse):
                 except ValueError:
                     return None
 
-        for i in range(0, 32):
+        for i in range(32):
             int_value = 2**i
             if all(
                 int_value > pf.value for pf in definitions.ProtocolFlagsDisableCallback
@@ -127,7 +127,7 @@ class OptionsNegotiateResponse(AbstractResponse):
             except ValueError:
                 return None
 
-        for i in range(0, 32):
+        for i in range(32):
             int_value = 2**i
             if all(int_value > af.value for af in definitions.ActionFlags):
                 break
