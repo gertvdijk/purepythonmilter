@@ -106,8 +106,8 @@ class MilterServer:
             reader=reader,  # pyright: ignore [reportGeneralTypeIssues]
             writer=writer,  # pyright: ignore [reportGeneralTypeIssues]
             app_factory=self._app_factory,
-            connection_id=connection_id,  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
-            server_on_close_cb=server_on_close_cb,  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
+            connection_id=connection_id,  # pyright: ignore [reportGeneralTypeIssues]
+            server_on_close_cb=server_on_close_cb,  # pyright: ignore [reportGeneralTypeIssues]
         )
         self._connections[connection_id] = connection
 

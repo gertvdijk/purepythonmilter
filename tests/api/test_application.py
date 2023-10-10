@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 def test_fails_no_annotation_return_type() -> None:
-    async def myhook(cmd: commands.Connect):  # type: ignore[no-untyped-def]  # noqa: ANN202,E501
+    async def myhook(cmd: commands.Connect):  # type: ignore[no-untyped-def]  # noqa: ANN202
         return None
 
     with pytest.raises(ProgrammingError):

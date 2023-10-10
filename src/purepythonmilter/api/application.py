@@ -346,7 +346,7 @@ class PurePythonMilter:
         if self._milterserver:
             raise RuntimeError("You can only start this app once.")
         srv = milterserver.MilterServer(
-            app_factory=self._get_factory()  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
+            app_factory=self._get_factory()  # pyright: ignore [reportGeneralTypeIssues]
         )
         self._milterserver = srv
         await srv.start_server(host=host, port=port)

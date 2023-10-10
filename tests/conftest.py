@@ -110,7 +110,7 @@ else:
     FixtureRequest = Any
 
 
-@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]
 async def fake_app_factory(
     request: FixtureRequest,  # indirect parameter to specify mock return values
 ) -> MilterAppFactory:
@@ -127,24 +127,24 @@ async def fake_app_factory(
         ppm = PurePythonMilter()
         factory = ppm._get_factory()
         app = factory(session=session)
-        app.on_connect = AsyncMock(return_value=mocked_return_on_connect)  # type: ignore[method-assign]  # noqa: E501
+        app.on_connect = AsyncMock(return_value=mocked_return_on_connect)  # type: ignore[method-assign]
         app.on_helo = AsyncMock(return_value=None)  # type: ignore[method-assign]
         app.on_mail_from = AsyncMock(return_value=None)  # type: ignore[method-assign]
         app.on_rcpt_to = AsyncMock(return_value=None)  # type: ignore[method-assign]
         app.on_data = AsyncMock(return_value=None)  # type: ignore[method-assign]
         app.on_header = AsyncMock(return_value=None)  # type: ignore[method-assign]
-        app.on_end_of_headers = AsyncMock(return_value=None)  # type: ignore[method-assign]  # noqa: E501
+        app.on_end_of_headers = AsyncMock(return_value=None)  # type: ignore[method-assign]
         app.on_body_chunk = AsyncMock(return_value=None)  # type: ignore[method-assign]
-        app.on_end_of_message = AsyncMock(return_value=mocked_return_on_end_of_message)  # type: ignore[method-assign]  # noqa: E501
+        app.on_end_of_message = AsyncMock(return_value=mocked_return_on_end_of_message)  # type: ignore[method-assign]
         app.on_abort = AsyncMock(return_value=None)  # type: ignore[method-assign]
         app.on_quit = AsyncMock(return_value=None)  # type: ignore[method-assign]
-        app.on_unknown = AsyncMock(return_value=mocked_return_on_unknown)  # type: ignore[method-assign]  # noqa: E501
+        app.on_unknown = AsyncMock(return_value=mocked_return_on_unknown)  # type: ignore[method-assign]
         return app
 
     return app_factory
 
 
-@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]
 async def fake_socket_connection(  # noqa: C901
     fake_app_factory: MilterAppFactory,
 ) -> AbstractMtaMilterConnectionHandler:
@@ -230,12 +230,12 @@ class FakeMtaMilterSession(session.MtaMilterSession):
         self.responses_written.append(response)
 
 
-@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]
 async def fake_session(
     fake_socket_connection: AbstractMtaMilterConnectionHandler,
 ) -> AsyncGenerator[FakeMtaMilterSession, None]:
     mms = FakeMtaMilterSession(
-        socket_connection=fake_socket_connection,  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
+        socket_connection=fake_socket_connection,  # pyright: ignore [reportGeneralTypeIssues]
         # Let's set a very short timeout to not have tests run so long.
         queue_reader_timeout_seconds=0.01,
     )
@@ -250,12 +250,12 @@ async def fake_session(
     mms._commands_consumer_task.cancel()
 
 
-@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]  # noqa: E501
+@pytest_asyncio.fixture  # pyright: ignore [reportUnknownMemberType, reportUntypedFunctionDecorator]
 async def fake_session_should_fail(
     fake_socket_connection: AbstractMtaMilterConnectionHandler,
 ) -> AsyncGenerator[FakeMtaMilterSession, None]:
     mms = FakeMtaMilterSession(
-        socket_connection=fake_socket_connection  # pyright: ignore [reportGeneralTypeIssues] # noqa: E501
+        socket_connection=fake_socket_connection  # pyright: ignore [reportGeneralTypeIssues]
     )
     yield mms
     assert mms._commands_consumer_task.done()

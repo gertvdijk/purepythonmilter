@@ -365,7 +365,7 @@ class BaseHeaderManipulation(AbstractManipulation):
     headername: str = attrs.field()
     headertext: str = attrs.field()
 
-    @headername.validator  # pyright: ignore [reportGeneralTypeIssues, reportUntypedFunctionDecorator, reportUnknownMemberType]  # noqa: E501
+    @headername.validator  # pyright: ignore [reportGeneralTypeIssues, reportUntypedFunctionDecorator, reportUnknownMemberType]
     def check_headername(
         self, attribute: attrs.Attribute[BaseHeaderManipulation], value: str
     ) -> None:
@@ -406,7 +406,7 @@ class InsertHeader(BaseHeaderManipulation):
     response_char: ClassVar[bytes] = b"i"  # SMFIR_INSHEADER
     index: int = attrs.field()
 
-    @index.validator  # pyright: ignore [reportGeneralTypeIssues, reportUntypedFunctionDecorator, reportUnknownMemberType]  # noqa: E501
+    @index.validator  # pyright: ignore [reportGeneralTypeIssues, reportUntypedFunctionDecorator, reportUnknownMemberType]
     def check_index(self, attribute: attrs.Attribute[InsertHeader], value: int) -> None:
         if bool(value < 0):
             raise ValueError("Header index must be positive.")
@@ -427,7 +427,7 @@ class ChangeHeader(BaseHeaderManipulation):
     response_char: ClassVar[bytes] = b"m"  # SMFIR_CHGHEADER
     nth_occurrence: int = attrs.field(default=0)
 
-    @nth_occurrence.validator  # pyright: ignore [reportGeneralTypeIssues, reportUntypedFunctionDecorator, reportUnknownMemberType]  # noqa: E501
+    @nth_occurrence.validator  # pyright: ignore [reportGeneralTypeIssues, reportUntypedFunctionDecorator, reportUnknownMemberType]
     def check_nth_occurrence(
         self, attribute: attrs.Attribute[ChangeHeader], value: int
     ) -> None:
