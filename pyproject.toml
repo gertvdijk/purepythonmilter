@@ -35,10 +35,10 @@ dependencies = [
 
 [project.optional-dependencies]
 development = [
-    "black>=23.1.0",
+    "black>=23.9.1",
     "build",
     "check-wheel-contents",
-    "mypy>=1.1.1",
+    "mypy>=1.6.0",
     "pytest-asyncio",
     "pytest-cov",
     "pytest",
