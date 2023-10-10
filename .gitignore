@@ -10,3 +10,4 @@ __pycache__/
 /.direnv
 /.coverage
 /.pytest-cov
+.envrc
