@@ -174,6 +174,10 @@ class MtaMilterSession(AbstractMtaMilterSession):
                         last_macro_command=self._last_macro_command,
                     )
                     self._last_macro_command = None
+                if queue_item.command == commands.Abort():
+                    self.logger.debug(f"Reset Session")
+                    self._pending_manipulations = []
+                    self._manipulations_sent = False
                 response = await self.handle_command_in_app(command=queue_item.command)
                 if response is not None:
                     self.save_manipulations(manipulations=response.manipulations)
